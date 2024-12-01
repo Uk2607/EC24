@@ -27,17 +27,24 @@ vector<vector<int>> read_data(string filePath) {
     return grid;
 }
 
-int getMin(vector<vector<int>>&grid, int x, int y, int r, int c) {
+int getMin(vector<vector<int>>&grid, int x, int y, int r, int c, int part) {
     int mn = INT_MAX;
-    vector<int>d = {1,0,-1,0,1};
-    for(int i=0;i<4;i++)// {1,0}, {0,-1}, {-1,0}, {0,1}
-        if(x+i>=0 && x+i<r && y+i+1>=0 && y+i+1<c)
-            mn = min(mn, grid[x+i][y+i+1]);
+    vector<pair<int,int>>dir = {{1,0}, {0, -1},{-1,0},{0, 1}};
+    if(part == 3) {
+        dir.push_back({1, 1});
+        dir.push_back({1, -1});
+        dir.push_back({-1, -1});
+        dir.push_back({-1, 1});
+    }
+    for(pair<int,int>p: dir) {
+        int dx = x+p.first, dy = y+p.second;
+        if(dx>=0 && dx<r && dy>=0 && dy<c)
+            mn = min(mn, grid[dx][dy]);
+    }
     return mn;
 }
 
-void part_1(vector<vector<int>>grid) {
-    cout<<"TODO\n";
+void solve(vector<vector<int>>grid, int part) {
     int cnt = 0, r = grid.size(), c = grid[0].size();
     vector<vector<int>>t = grid;
     bool hasChange;
@@ -47,62 +54,45 @@ void part_1(vector<vector<int>>grid) {
         for(int i=0;i<r;i++) {
             for(int j=0;j<c;j++) {
                 if(grid[i][j]==0) continue;
-                int n_val = getMin(grid, i, j, r, c)+1;
+                int n_val = getMin(grid, i, j, r, c, part)+1;
                 if(n_val != grid[i][j]) {
-                    grid[i][j] = n_val;
+                    t[i][j] = n_val;
                     hasChange = true;
                 }
             }
         }
         grid = t;
     } while (hasChange);
-    
-    cout<<"\n";
-    for(vector<int>v: grid) {
-        for(int x: v) {
-            cout<<x<<" ";
-            cnt+=x;
-        }
-        cout<<"\n";
-    }
-    cout<<"PART 1 :: "<<cnt<<"\n";
-}
-
-void part_2(vector<vector<int>>grid) {
-    cout<<"TODO\n";
-}
-
-void part_3(vector<vector<int>>grid) {
-    cout<<"TODO\n";
+    for(vector<int>v: grid) for(int x: v) cnt += x;
+    cout<<"PART "<<part<<" :: "<<cnt<<"\n";
 }
 
 int main() {
-    int part;
-    cout<<"Enter question part: ";
-    cin>>part;
+    int part = 3;
+    // cout<<"Enter question part: ";
+    // cin>>part;
     vector<vector<int>>ip;
     switch (part)
     {
     case 1:
         ip = read_data("input/03/part_01.in");
-        part_1(ip);
+        solve(ip, 1);
         break;
     case 2:
         ip = read_data("input/03/part_02.in");
-        part_2(ip);
+        solve(ip, 2);
         break;
     case 3:
-        // TODO
-        ip = read_data("input/03/part_03.in");
-        part_3(ip);
+        ip = read_data("input/03/part_03.in"); // 11725 X but 1 _ _ _ _
+        solve(ip, 3);
         break;
     default:
         ip = read_data("input/03/part_01.in");
-        part_1(ip);
+        solve(ip, 1);
         ip = read_data("input/03/part_02.in");
-        part_2(ip);
+        solve(ip, 2);
         ip = read_data("input/03/part_03.in");
-        part_3(ip);
+        solve(ip, 3);
         break;
     }
     return 0;

@@ -5,37 +5,33 @@
 #include<string>
 using namespace std;
 
-vector<vector<int>> read_data(string filePath) {
+vector<int> read_data(string filePath) {
 
     ifstream file(filePath);
 
-    vector<vector<int>>grid;
+    vector<int>arr;
 
     if (!file.is_open()) {
         cerr << "Failed to open file: " << filePath << endl;
-        return grid;
+        return arr;
     }
 
-    string sentence;
-    while (getline(file, sentence)) {
-        vector<int>t;
-        for(char c: sentence)
-            (c=='.')?t.push_back(0):t.push_back(1);
-        grid.push_back(t);
-    }
+    string line;
+    while (getline(file, line))
+        arr.push_back(stoi(line));
     file.close();
-    return grid;
+    return arr;
 }
 
-void solve(vector<vector<int>>grid, int part) {
+void solve(vector<int>arr, int part) {
     
 }
 
 int main() {
-    int part = 1;
+    int part;
     cout<<"Enter question part: ";
     cin>>part;
-    vector<vector<int>>ip;
+    vector<int>ip;
 
     string folder_path = "input/04/";
     switch (part)

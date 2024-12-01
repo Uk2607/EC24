@@ -24,29 +24,37 @@ vector<vector<int>> read_data(string filePath) {
         while(getline(ss, x, ' ')) t.push_back(stoi(x));
         arr.push_back(t);
     }
+
+    vector<vector<int>>cols(arr[0].size());
+    for(int i=0;i<arr.size(); i++)
+        for(int j=0;j<arr[0].size(); j++)
+            cols[j].push_back(arr[i][j]);
+
     file.close();
-    return arr;
+    return cols;
 }
 
-void part1(vector<vector<int>>&arr) {
-    long long int res = LLONG_MAX;
-    for(vector<int>v: arr) {
-        for(int x: v) {
-            cout<<x<<" ";
-        }
+void print(vector<vector<int>>&cols) {
+    for(vector<int>v: cols) {
+        for(int x: v) cout<<x<<" ";
         cout<<"\n";
     }
-    cout<<"PART 1:: "<<res<<"\n";
 }
 
-void part2(vector<vector<int>>&arr) {
-    long long int res = LLONG_MAX;
-    cout<<"PART 2:: "<<res<<"\n";
+void part1(vector<vector<int>>cols) {
+    string first_row = "";
+    print(cols);
+    cout<<"PART 1:: "<<first_row<<"\n";
 }
 
-void part3(vector<vector<int>>&arr) {
-    long long int res = LLONG_MAX;
-    cout<<"PART 3:: "<<res<<"\n";
+void part2(vector<vector<int>>cols) {
+    string first_row = "";
+    cout<<"PART 2:: "<<first_row<<"\n";
+}
+
+void part3(vector<vector<int>>cols) {
+    string first_row = "";
+    cout<<"PART 3:: "<<first_row<<"\n";
 }
 
 int main() {

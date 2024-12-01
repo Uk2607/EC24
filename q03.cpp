@@ -36,7 +36,8 @@ int getMin(vector<vector<int>>&grid, int x, int y, int r, int c) {
     return mn;
 }
 
-int part_1(vector<vector<int>>grid) {
+void part_1(vector<vector<int>>grid) {
+    cout<<"TODO\n";
     int cnt = 0, r = grid.size(), c = grid[0].size();
     vector<vector<int>>t = grid;
     bool hasChange;
@@ -64,12 +65,45 @@ int part_1(vector<vector<int>>grid) {
         }
         cout<<"\n";
     }
-    return cnt;
+    cout<<"PART 1 :: "<<cnt<<"\n";
+}
+
+void part_2(vector<vector<int>>grid) {
+    cout<<"TODO\n";
+}
+
+void part_3(vector<vector<int>>grid) {
+    cout<<"TODO\n";
 }
 
 int main() {
-
-    vector<vector<int>>ip = read_data("ex");
-    cout<<"PART 1 :: "<<part_1(ip)<<"\n";
+    int part;
+    cout<<"Enter question part: ";
+    cin>>part;
+    vector<vector<int>>ip;
+    switch (part)
+    {
+    case 1:
+        ip = read_data("input/03/part_01.in");
+        part_1(ip);
+        break;
+    case 2:
+        ip = read_data("input/03/part_02.in");
+        part_2(ip);
+        break;
+    case 3:
+        // TODO
+        ip = read_data("input/03/part_03.in");
+        part_3(ip);
+        break;
+    default:
+        ip = read_data("input/03/part_01.in");
+        part_1(ip);
+        ip = read_data("input/03/part_02.in");
+        part_2(ip);
+        ip = read_data("input/03/part_03.in");
+        part_3(ip);
+        break;
+    }
     return 0;
 }

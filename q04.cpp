@@ -23,7 +23,7 @@ vector<int> read_data(string filePath) {
     return arr;
 }
 
-void solve(vector<int>arr, int part) {
+void solve(vector<int>arr) {
     
 }
 
@@ -38,23 +38,23 @@ int main() {
     {
     case 1:
         ip = read_data(folder_path+"part_01.in");
-        solve(ip, part);
+        solve(ip);
         break;
     case 2:
         ip = read_data(folder_path+"part_02.in");
-        solve(ip, part);
+        solve(ip);
         break;
     case 3:
         ip = read_data(folder_path+"part_03.in");
-        solve(ip, part);
+        solve(ip);
         break;
     default:
         ip = read_data(folder_path+"part_01.in");
-        solve(ip, 1);
+        solve(ip);
         ip = read_data(folder_path+"part_02.in");
-        solve(ip, 2);
+        solve(ip);
         ip = read_data(folder_path+"part_03.in");
-        solve(ip, 3);
+        solve(ip);
         break;
     }
     return 0;

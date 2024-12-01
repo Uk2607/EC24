@@ -40,6 +40,7 @@ int getMin(vector<vector<int>>&grid, int x, int y, int r, int c, int part) {
         int dx = x+p.first, dy = y+p.second;
         if(dx>=0 && dx<r && dy>=0 && dy<c)
             mn = min(mn, grid[dx][dy]);
+        else mn = 0;
     }
     return mn;
 }
@@ -63,7 +64,14 @@ void solve(vector<vector<int>>grid, int part) {
         }
         grid = t;
     } while (hasChange);
-    for(vector<int>v: grid) for(int x: v) cnt += x;
+    for(vector<int>v: grid) {
+        for(int x: v) {
+            if(x==0) cout<<" ";
+            else cout<<x;
+            cnt += x;
+        }
+        cout<<"\n";
+    }
     cout<<"PART "<<part<<" :: "<<cnt<<"\n";
 }
 

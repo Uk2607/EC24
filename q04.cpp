@@ -23,8 +23,23 @@ vector<int> read_data(string filePath) {
     return arr;
 }
 
-void solve(vector<int>arr) {
-    
+void part1n2(vector<int>&arr, int part) {
+    int mn = INT_MAX;
+    for(int x: arr) mn = min(mn, x);
+    int cnt = 0;
+    for(int x: arr) cnt += (x-mn);
+    cout<<"PART "<<part<<":: "<<cnt<<"\n";
+}
+
+void part3(vector<int>&arr) {
+    long long int cnt, res = LLONG_MAX;
+    for(int x: arr) {
+        cnt = 0;
+        for(int y: arr)
+            cnt+=abs(y-x);
+        res = min(res, cnt);
+    }
+    cout<<"PART 3:: "<<res<<"\n";
 }
 
 int main() {
@@ -38,23 +53,23 @@ int main() {
     {
     case 1:
         ip = read_data(folder_path+"part_01.in");
-        solve(ip);
+        part1n2(ip, part);
         break;
     case 2:
         ip = read_data(folder_path+"part_02.in");
-        solve(ip);
+        part1n2(ip, part);
         break;
     case 3:
         ip = read_data(folder_path+"part_03.in");
-        solve(ip);
+        part3(ip);
         break;
     default:
         ip = read_data(folder_path+"part_01.in");
-        solve(ip);
+        part1n2(ip, 1);
         ip = read_data(folder_path+"part_02.in");
-        solve(ip);
+        part1n2(ip, 2);
         ip = read_data(folder_path+"part_03.in");
-        solve(ip);
+        part3(ip);
         break;
     }
     return 0;

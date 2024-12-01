@@ -79,13 +79,7 @@ void part_3(vector<string>&words, vector<string>&inscription) {
                 }
             }
         }
-        for(bool b: used) if(b) ++cnt;
         vis.push_back(used);
-
-        // cout<<ins<<"\n";
-        // for(bool b: used)
-        //     cout<<(b?'^':' ');
-        // cout<<"\n";
     }
 
     // Rotate
@@ -93,10 +87,33 @@ void part_3(vector<string>&words, vector<string>&inscription) {
     for(int i=0;i<inscription.size();i++)
         for(int j=0;j<inscription[i].size();j++)
             new_inscription[j]+=inscription[i][j];
-    
-    for(int i=0;i<new_inscription.size();i++) {
-        
+    int r = vis.size(), c = vis[0].size();
+    vector<vector<bool>>new_vis(c, vector<bool>(r, false));
+    for(int i=0;i<r;i++) for(int j=0;j<c;j++) new_vis[j][i] = vis[i][j];
+
+    int idx = 0;
+    for(string ins: new_inscription) {
+        vector<bool>used = new_vis[idx];
+        for(string word: words) {
+            string rev = word;
+            if(ins.length()<word.length()) continue;
+            reverse(rev.begin(), rev.end());
+            for(int i=0;i<=ins.length()-word.length();i++) {
+                cout<<word<<"::"<<ins.substr(i, word.length())<<"\n";
+                if(ins.substr(i, word.length())==word || ins.substr(i, word.length())==rev) {
+                    int k=0;
+                    while(k<word.length()) {
+                        used[(i+k)%ins.size()] = true;
+                        ++k;
+                    }
+                }
+            }
+        }
+        for(bool b: used) if(b) ++cnt;
+        new_vis[idx++] = used;
     }
+
+    for(int i=0;i<r;i++) for(int j=0;j<c;j++) vis[i][j] = new_vis[j][i];
 
     cout<<"PART 3 :: "<<cnt<<"\n";
 }
@@ -117,7 +134,6 @@ int main() {
         part_2(p.first, p.second);
         break;
     case 3:
-        // TODO
         p = read_data("input/02/part_03.in");
         part_3(p.first, p.second);
         break;

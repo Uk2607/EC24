@@ -76,23 +76,23 @@ void solve(vector<vector<int>>grid, int part) {
 }
 
 int main() {
-    int part = 3;
-    // cout<<"Enter question part: ";
-    // cin>>part;
+    int part;
+    cout<<"Enter question part: ";
+    cin>>part;
     vector<vector<int>>ip;
     switch (part)
     {
     case 1:
         ip = read_data("input/03/part_01.in");
-        solve(ip, 1);
+        solve(ip, part);
         break;
     case 2:
         ip = read_data("input/03/part_02.in");
-        solve(ip, 2);
+        solve(ip, part);
         break;
     case 3:
         ip = read_data("input/03/part_03.in"); // 11725 X but 1 _ _ _ _
-        solve(ip, 3);
+        solve(ip, part);
         break;
     default:
         ip = read_data("input/03/part_01.in");

@@ -42,18 +42,18 @@ void print(vector<vector<int>>&cols) {
 }
 
 void part1(vector<vector<int>>cols) {
-    string first_row = "";
+    string first_row = "TODO";
     print(cols);
     cout<<"PART 1:: "<<first_row<<"\n";
 }
 
 void part2(vector<vector<int>>cols) {
-    string first_row = "";
+    string first_row = "TODO";
     cout<<"PART 2:: "<<first_row<<"\n";
 }
 
 void part3(vector<vector<int>>cols) {
-    string first_row = "";
+    string first_row = "TODO";
     cout<<"PART 3:: "<<first_row<<"\n";
 }
 

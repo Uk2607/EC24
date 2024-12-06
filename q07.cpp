@@ -3,56 +3,88 @@
 #include<sstream>
 #include<vector>
 #include<string>
+#include<map>
 using namespace std;
 
-vector<vector<int>> read_data(string filePath) {
+map<char, vector<char>> read_data(string filePath) {
 
     ifstream file(filePath);
 
-    vector<vector<int>>arr;
+    map<char, vector<char>>mp;
 
     if (!file.is_open()) {
         cerr << "Failed to open file: " << filePath << endl;
-        return arr;
+        return mp;
     }
 
     string line;
     while (getline(file, line)) {
-        vector<int>t;
         stringstream ss(line);
-        string x;
-        while(getline(ss, x, ' ')) t.push_back(stoi(x));
-        arr.push_back(t);
+        string s;
+        char src;
+        bool isParent = true;
+        vector<char>operation;
+        while(getline(ss, s, ':')) {
+            if(isParent) {
+                src = s[0];
+                isParent = false;
+            } else {
+                string op;
+                stringstream ops(s);
+                while(getline(ops, op, ','))
+                    operation.push_back(op[0]);
+            }
+        }
+        mp[src] = operation;
     }
-
-    vector<vector<int>>cols(arr[0].size());
-    for(int i=0;i<arr.size(); i++)
-        for(int j=0;j<arr[0].size(); j++)
-            cols[j].push_back(arr[i][j]);
-
     file.close();
-    return cols;
+    return mp;
 }
 
-void print(vector<vector<int>>&cols) {
-    for(vector<int>v: cols) {
-        for(int x: v) cout<<x<<" ";
+void print(map<char, vector<char>>mp) {
+    for(auto [src, ops]: mp) {
+        cout<<src<<":";
+        for(char c:ops) cout<<c<<" ";
         cout<<"\n";
     }
 }
 
-void part1(vector<vector<int>>cols) {
-    string first_row = "TODO";
-    print(cols);
-    cout<<"PART 1:: "<<first_row<<"\n";
+bool compare(const pair<int, char>& a, const pair<int, char>& b) {
+    if(a.first == b.first) return a.second<b.second;
+    return a.first > b.first; // Sort in descending order
 }
 
-void part2(vector<vector<int>>cols) {
+void part1(map<char, vector<char>>mp) {
+    string res = "";
+    int t = 0;
+    map<char, pair<int, int>>score;
+    for(auto it: mp) score[it.first] = {10, 0};
+    while(t<10) {
+        for(auto it: mp) {
+            char src = it.first;
+            char op = it.second[t%it.second.size()];
+            if(op == '+') {
+                score[src].first += 1;
+            } else if(op == '-') {
+                if(score[src].first>0) score[src].first-=1;
+            }
+            score[src].second += score[src].first;
+        }
+        ++t;
+    }
+    vector<pair<int, char>>standing;
+    for(auto it: score) standing.push_back({it.second.second, it.first});
+    sort(standing.begin(), standing.end(), compare);
+    for(pair<int, char>p: standing) res += p.second;
+    cout<<"PART 1:: "<<res<<"\n";
+}
+
+void part2(map<char, vector<char>>mp) {
     string first_row = "TODO";
     cout<<"PART 2:: "<<first_row<<"\n";
 }
 
-void part3(vector<vector<int>>cols) {
+void part3(map<char, vector<char>>mp) {
     string first_row = "TODO";
     cout<<"PART 3:: "<<first_row<<"\n";
 }
@@ -61,7 +93,7 @@ int main() {
     int part;
     cout<<"Enter question part: ";
     cin>>part;
-    vector<vector<int>>ip;
+    map<char, vector<char>>ip;
 
     string folder_path = "input/07/";
     switch (part)

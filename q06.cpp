@@ -82,7 +82,7 @@ void part1n2(map<string, vector<string>>&mp, int part) {
 }
 
 void part3(map<string, vector<string>>mp) {
-    string res = "";
+    string res = "TODO using bfs to limit the dfs";
     string node = "RR";
     queue<string>q;
     q.push(node);

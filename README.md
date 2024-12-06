@@ -2,7 +2,9 @@
 ## Problem Solving Progress
 
 ### Solved
-- [Day 01](https://everybody.codes/event/2024/quests/1) - Path: [q01.cpp](./q01.cpp) | [GitHub](https://github.com/Uk2607/EC24/blob/main/q01.cpp)
+- [Day 01](https://everybody.codes/event/2024/quests/1)
+    - Code: [q01.cpp](./q01.cpp)
+    - Input: [input/01](./input/01/)
 - [Day 02](https://everybody.codes/event/2024/quests/2) - Path: [q02.cpp](./q02.cpp) | [GitHub](https://github.com/Uk2607/EC24/blob/main/q02.cpp)
 - [Day 03](https://everybody.codes/event/2024/quests/3) - Path: [q03.cpp](./q03.cpp) | [GitHub](https://github.com/Uk2607/EC24/blob/main/q03.cpp)
 - [Day 04](https://everybody.codes/event/2024/quests/4) - Path: [q04.cpp](./q04.cpp) | [GitHub](https://github.com/Uk2607/EC24/blob/main/q04.cpp)

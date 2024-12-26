@@ -4,10 +4,8 @@
 #include<vector>
 #include<string>
 #include<map>
+#include<assert.h>
 using namespace std;
-
-// const string RACETRACK = "-=++=-==++=++=-=+=-=+=+=--=-=++=-==++=-+=-=+=-=+=+=++=-+==++=++=-=-=---=++==--+++==++=+=--==++==+++=++=+++=--=+=-=+=-+=-+=-+-=+=-=+=-+++=+==++++==---=+=+=-=";
-const string RACETRACK = "+===++-=+=-=";
 
 map<char, vector<char>> read_data(string filePath) {
 
@@ -84,10 +82,12 @@ void part1(map<char, vector<char>>mp) {
         ++t;
     }
     string res = get_standings(score);
-    cout<<"PART 1:: "<<res<<"\n"; // KBAICEFJD
+    cout<<"PART 1:: "<<res<<"\n";
+    assert(res=="KBAICEFJD");
 }
 
 void part2(map<char, vector<char>>mp) {
+    const string RACETRACK = "-=++=-==++=++=-=+=-=+=+=--=-=++=-==++=-+=-=+=-=+=+=++=-+==++=++=-=-=---=++==--+++==++=+=--==++==+++=++=+++=--=+=-=+=-+=-+=-+-=+=-=+=-+++=+==++++==---=+=+=-=";
     map<char, pair<int, int>>score;
     for(auto it: mp) score[it.first] = {10, 0};
     int loop = 0, idx = 0;
@@ -107,11 +107,12 @@ void part2(map<char, vector<char>>mp) {
             idx++;
         }
         loop++;
-        cout<<10-loop<<":\n";
+        cout<<loop<<":\n";
         for(auto it: score) cout<<it.first<<": "<<it.second.second<<"\n";
     }
     string res = get_standings(score);
-    cout<<"PART 2:: "<<res<<"\n"; // F________ != FDEKBJCIH
+    cout<<"PART 2:: "<<res<<"\n";
+    assert(res=="FKBDECIHJ");
 }
 
 void part3(map<char, vector<char>>mp) {

@@ -52,13 +52,21 @@ void print(map<char, vector<char>>mp) {
     }
 }
 
-bool compare(const pair<int, char>& a, const pair<int, char>& b) {
-    if(a.first == b.first) return a.second<b.second;
-    return a.first > b.first; // Sort in descending order
+bool compare(const pair<char, int>& a, const pair<char, int>& b) {
+    if(a.second == b.second) return a.first<b.first;
+    return a.second > b.second; // Sort in descending order
+}
+
+string get_standings(map<char, pair<int, int>>&score) {
+    string res = "";
+    vector<pair<char, int>>standing;
+    for(auto it: score) standing.push_back({it.first, it.second.second});
+    sort(standing.begin(), standing.end(), compare);
+    for(pair<char, int>p: standing) res += p.first;
+    return res;
 }
 
 void part1(map<char, vector<char>>mp) {
-    string res = "";
     int t = 0;
     map<char, pair<int, int>>score;
     for(auto it: mp) score[it.first] = {10, 0};
@@ -75,15 +83,11 @@ void part1(map<char, vector<char>>mp) {
         }
         ++t;
     }
-    vector<pair<int, char>>standing;
-    for(auto it: score) standing.push_back({it.second.second, it.first});
-    sort(standing.begin(), standing.end(), compare);
-    for(pair<int, char>p: standing) res += p.second;
+    string res = get_standings(score);
     cout<<"PART 1:: "<<res<<"\n"; // KBAICEFJD
 }
 
 void part2(map<char, vector<char>>mp) {
-    string res = "";
     map<char, pair<int, int>>score;
     for(auto it: mp) score[it.first] = {10, 0};
     int loop = 0, idx = 0;
@@ -106,10 +110,7 @@ void part2(map<char, vector<char>>mp) {
         cout<<10-loop<<":\n";
         for(auto it: score) cout<<it.first<<": "<<it.second.second<<"\n";
     }
-    vector<pair<int, char>>standing;
-    for(auto it: score) standing.push_back({it.second.second, it.first});
-    sort(standing.begin(), standing.end(), compare);
-    for(pair<int, char>p: standing) res += p.second;
+    string res = get_standings(score);
     cout<<"PART 2:: "<<res<<"\n"; // F________ != FDEKBJCIH
 }
 

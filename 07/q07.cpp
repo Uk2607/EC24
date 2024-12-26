@@ -6,7 +6,8 @@
 #include<map>
 using namespace std;
 
-const string RACETRACK = "S-=++=-==++=++=-=+=-=+=+=--=-=++=-==++=-+=-=+=-=+=+=++=-+==++=++=-=-=---=++==--+++==++=+=--==++==+++=++=+++=--=+=-=+=-+=-+=-+-=+=-=+=-+++=+==++++==---=+=+=-";                                                                   
+// const string RACETRACK = "-=++=-==++=++=-=+=-=+=+=--=-=++=-==++=-+=-=+=-=+=+=++=-+==++=++=-=-=---=++==--+++==++=+=--==++==+++=++=+++=--=+=-=+=-+=-+=-+-=+=-=+=-+++=+==++++==---=+=+=-=";
+const string RACETRACK = "+===++-=+=-=";
 
 map<char, vector<char>> read_data(string filePath) {
 
@@ -78,12 +79,38 @@ void part1(map<char, vector<char>>mp) {
     for(auto it: score) standing.push_back({it.second.second, it.first});
     sort(standing.begin(), standing.end(), compare);
     for(pair<int, char>p: standing) res += p.second;
-    cout<<"PART 1:: "<<res<<"\n";
+    cout<<"PART 1:: "<<res<<"\n"; // KBAICEFJD
 }
 
 void part2(map<char, vector<char>>mp) {
-    string first_row = "TODO";
-    cout<<"PART 2:: "<<first_row<<"\n";
+    string res = "";
+    map<char, pair<int, int>>score;
+    for(auto it: mp) score[it.first] = {10, 0};
+    int loop = 0, idx = 0;
+    while(loop<10) {
+        for(int t=0;t<RACETRACK.length();t++) {
+            for(auto it: mp) {
+                char src = it.first;
+                char track_op = RACETRACK[t], op = track_op;
+                if(track_op == '=') op = it.second[idx%it.second.size()];
+                if(op == '+') {
+                    score[src].first += 1;
+                } else if(op == '-') {
+                    if(score[src].first>0) score[src].first-=1;
+                }
+                score[src].second += score[src].first;
+            }
+            idx++;
+        }
+        loop++;
+        cout<<10-loop<<":\n";
+        for(auto it: score) cout<<it.first<<": "<<it.second.second<<"\n";
+    }
+    vector<pair<int, char>>standing;
+    for(auto it: score) standing.push_back({it.second.second, it.first});
+    sort(standing.begin(), standing.end(), compare);
+    for(pair<int, char>p: standing) res += p.second;
+    cout<<"PART 2:: "<<res<<"\n"; // F________ != FDEKBJCIH
 }
 
 void part3(map<char, vector<char>>mp) {

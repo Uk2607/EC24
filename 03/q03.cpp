@@ -64,14 +64,8 @@ void solve(vector<vector<int>>grid, int part) {
         }
         grid = t;
     } while (hasChange);
-    for(vector<int>v: grid) {
-        for(int x: v) {
-            if(x==0) cout<<" ";
-            else cout<<x;
-            cnt += x;
-        }
-        cout<<"\n";
-    }
+    for(vector<int>v: grid)
+        for(int x: v) cnt += x;
     cout<<"PART "<<part<<" :: "<<cnt<<"\n";
 }
 
@@ -80,26 +74,28 @@ int main() {
     cout<<"Enter question part: ";
     cin>>part;
     vector<vector<int>>ip;
+
+    string folder_path = "03/";
     switch (part)
     {
     case 1:
-        ip = read_data("input/03/part_01.in");
+        ip = read_data(folder_path+"01.in");
         solve(ip, part);
         break;
     case 2:
-        ip = read_data("input/03/part_02.in");
+        ip = read_data(folder_path+"02.in");
         solve(ip, part);
         break;
     case 3:
-        ip = read_data("input/03/part_03.in"); // 11725 X but 1 _ _ _ _
+        ip = read_data(folder_path+"03.in"); // 11725 X but 1 _ _ _ _
         solve(ip, part);
         break;
     default:
-        ip = read_data("input/03/part_01.in");
+        ip = read_data(folder_path+"01.in");
         solve(ip, 1);
-        ip = read_data("input/03/part_02.in");
+        ip = read_data(folder_path+"02.in");
         solve(ip, 2);
-        ip = read_data("input/03/part_03.in");
+        ip = read_data(folder_path+"03.in");
         solve(ip, 3);
         break;
     }

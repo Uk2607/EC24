@@ -99,7 +99,6 @@ void part_3(vector<string>&words, vector<string>&inscription) {
             if(ins.length()<word.length()) continue;
             reverse(rev.begin(), rev.end());
             for(int i=0;i<=ins.length()-word.length();i++) {
-                cout<<word<<"::"<<ins.substr(i, word.length())<<"\n";
                 if(ins.substr(i, word.length())==word || ins.substr(i, word.length())==rev) {
                     int k=0;
                     while(k<word.length()) {
@@ -123,26 +122,27 @@ int main() {
     cout<<"Enter question part: ";
     cin>>part;
     pair<vector<string>, vector<string>>p;
+    string folder_path = "02/";
     switch (part)
     {
     case 1:
-        p = read_data("input/02/part_01.in");
+        p = read_data(folder_path+"01.in");
         part_1(p.first, p.second[0]);
         break;
     case 2:
-        p = read_data("input/02/part_02.in");
+        p = read_data(folder_path+"02.in");
         part_2(p.first, p.second);
         break;
     case 3:
-        p = read_data("input/02/part_03.in");
+        p = read_data(folder_path+"03.in");
         part_3(p.first, p.second);
         break;
     default:
-        p = read_data("input/02/part_01.in");
+        p = read_data(folder_path+"01.in");
         part_1(p.first, p.second[0]);
-        p = read_data("input/02/part_02.in");
+        p = read_data(folder_path+"02.in");
         part_2(p.first, p.second);
-        p = read_data("input/02/part_03.in");
+        p = read_data(folder_path+"03.in");
         part_3(p.first, p.second);
         break;
     }

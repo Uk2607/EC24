@@ -54,26 +54,28 @@ int main() {
     ememyPower[2] = 3; // C
     ememyPower[3] = 5; // D
     string input;
+    
+    string folder_path = "01/";
     switch (part)
     {
     case 1:
-        input = read_data("input/01/part_01.in");
+        input = read_data(folder_path+"01.in");
         part_1(ememyPower, input);
         break;
     case 2:
-        input = read_data("input/01/part_02.in");
+        input = read_data(folder_path+"02.in");
         part_2(ememyPower, input);
         break;
     case 3:
-        input = read_data("input/01/part_03.in");
+        input = read_data(folder_path+"03.in");
         part_3(ememyPower, input);
         break;
     default:
-        input = read_data("input/01/part_01.in");
+        input = read_data(folder_path+"01.in");
         part_1(ememyPower, input);
-        input = read_data("input/01/part_02.in");
+        input = read_data(folder_path+"02.in");
         part_2(ememyPower, input);
-        input = read_data("input/01/part_03.in");
+        input = read_data(folder_path+"03.in");
         part_3(ememyPower, input);
         break;
     }

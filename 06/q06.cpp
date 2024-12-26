@@ -98,27 +98,27 @@ int main() {
     cin>>part;
     map<string, vector<string>>mp;
 
-    string folder_path = "input/06/";
+    string folder_path = "06/";
     switch (part)
     {
     case 1:
-        mp = read_data(folder_path+"part_01.in");
+        mp = read_data(folder_path+"01.in");
         part1n2(mp, part);
         break;
     case 2:
-        mp = read_data(folder_path+"part_02.in");
+        mp = read_data(folder_path+"02.in");
         part1n2(mp, part);
         break;
     case 3:
-        mp = read_data(folder_path+"part_03.in");
+        mp = read_data(folder_path+"03.in");
         part3(mp);
         break;
     default:
-        mp = read_data(folder_path+"part_01.in");
+        mp = read_data(folder_path+"01.in");
         part1n2(mp, 1);
-        mp = read_data(folder_path+"part_02.in");
+        mp = read_data(folder_path+"02.in");
         part1n2(mp, 2);
-        mp = read_data(folder_path+"part_03.in");
+        mp = read_data(folder_path+"03.in");
         part3(mp);
         break;
     }

@@ -63,27 +63,27 @@ int main() {
     cin>>part;
     vector<vector<int>>ip;
 
-    string folder_path = "input/05/";
+    string folder_path = "05/";
     switch (part)
     {
     case 1:
-        ip = read_data(folder_path+"part_01.in");
+        ip = read_data(folder_path+"01.in");
         part1(ip);
         break;
     case 2:
-        ip = read_data(folder_path+"part_02.in");
+        ip = read_data(folder_path+"02.in");
         part2(ip);
         break;
     case 3:
-        ip = read_data(folder_path+"part_03.in");
+        ip = read_data(folder_path+"03.in");
         part3(ip);
         break;
     default:
-        ip = read_data(folder_path+"part_01.in");
+        ip = read_data(folder_path+"01.in");
         part1(ip);
-        ip = read_data(folder_path+"part_02.in");
+        ip = read_data(folder_path+"02.in");
         part2(ip);
-        ip = read_data(folder_path+"part_03.in");
+        ip = read_data(folder_path+"03.in");
         part3(ip);
         break;
     }

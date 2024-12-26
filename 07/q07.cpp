@@ -107,17 +107,48 @@ void part2(map<char, vector<char>>mp) {
             idx++;
         }
         loop++;
-        cout<<loop<<":\n";
-        for(auto it: score) cout<<it.first<<": "<<it.second.second<<"\n";
     }
     string res = get_standings(score);
     cout<<"PART 2:: "<<res<<"\n";
     assert(res=="FKBDECIHJ");
 }
 
+string get_racetrack3() {
+    vector<string>grid = {
+        "S+= +=-== +=++=     =+=+=--=    =-= ++=     +=-  =+=++=-+==+ =++=-=-=--",
+        "- + +   + =   =     =      =   == = - -     - =  =         =-=        -",
+        "= + + +-- =-= ==-==-= --++ +  == == = +     - =  =    ==++=    =++=-=++",
+        "+ + + =     +         =  + + == == ++ =     = =  ==   =   = =++=       ",
+        "= = + + +== +==     =++ == =+=  =  +  +==-=++ =   =++ --= + ="          ,
+        "+ ==- = + =   = =+= =   =       ++--          +     =   = = =--= ==++==",
+        "=     ==- ==+-- = = = ++= +=--      ==+ ==--= +--+=-= ==- ==   =+=    =",
+        "-               = = = =   +  +  ==+ = = +   =        ++    =          -",
+        "-               = + + =   +  -  = + = = +   =        +     =          -",
+        "--==++++==+=+++-= =-= =-+-=  =+-= =-= =--   +=++=+++==     -=+=++==+++-"};
+}
+
 void part3(map<char, vector<char>>mp) {
-    string first_row = "TODO";
-    cout<<"PART 3:: "<<first_row<<"\n";
+    vector<char>actions;
+    string RACETRACK = get_racetrack3();
+
+    for(auto it: mp) actions = it.second;
+    int n = actions.size(), loop = 0, idx = 0, final_score = 0, curr_score = 10;
+
+    while(loop<2024) {
+        for(int t=0;t<RACETRACK.length();t++) {
+            char track_op = RACETRACK[t], op = track_op;
+            if(track_op == '=') op = actions[idx%n];
+            if(op == '+') {
+                curr_score += 1;
+            } else if(op == '-') {
+                if(curr_score>0) curr_score-=1;
+            }
+            final_score += curr_score;
+            idx++;
+        }
+        loop++;
+    }
+    cout<<"PART 3:: "<<final_score<<"\n";
 }
 
 int main() {

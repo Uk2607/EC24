@@ -1,9 +1,10 @@
 #include<iostream>
 #include<fstream>
 #include<sstream>
+#include<string>
 #include<vector>
 #include<map>
-#include<string>
+#include<set>
 using namespace std;
 
 map<string, vector<string>> read_data(string filePath) {
@@ -48,7 +49,8 @@ void print(map<string, vector<string>>mp) {
     }
 }
 
-void dfs(string u, map<string, vector<string>>&mp, vector<string>&path, map<int, vector<vector<string>>>&path_dict) {
+void dfs(string u, map<string, vector<string>>&mp, vector<string>&path, map<int, vector<vector<string>>>&path_dict, int lvl = INT_MAX-1) {
+    if(path.size()>lvl) return;
     if(u == "@") {
         path_dict[path.size()].push_back(path);
         return;
@@ -67,27 +69,51 @@ void part1n2(map<string, vector<string>>&mp, int part) {
     map<int, vector<vector<string>>>path_dict;
     dfs(root, mp, path, path_dict);
     for(auto it: path_dict) {
-        // cout<<it.first<<":"<<"\n";
-        // for(vector<string>path: it.second) {
-        //     for(string node: path) cout<<node<<"->";
-        //     cout<<"\n";
-        // }
         if(it.second.size()==1)
-        for(string node: it.second[0]) {
-            if(part==1) res += node;
-            else if(part==2) res += node[0];
-        }
+            for(string node: it.second[0]) {
+                if(part==1) res += node;
+                else if(part==2) res += node[0];
+            }
     }
     cout<<"PART "<<part<<":: "<<res<<"\n";
 }
 
 void part3(map<string, vector<string>>mp) {
-    string res = "TODO using bfs to limit the dfs";
+    string res = "";
     string node = "RR";
     queue<string>q;
+    set<string>seen;
+    int lvl = 1;
     q.push(node);
+    seen.insert(node);
     while(!q.empty()) {
-        ;
+        int n = q.size(), fruit_cnt = 0;
+        while(n--) {
+            node = q.front();
+            q.pop();
+            for(string v: mp[node]) {
+                if(v == "@") {
+                    fruit_cnt++;
+                    continue;
+                }
+                if(seen.count(v)) continue;
+                q.push(v);
+                seen.insert(v);
+            }
+        }
+        lvl++;
+        if(fruit_cnt == 1) break;
+    }
+    
+    string root = "RR";
+    vector<string>path = {root};
+    map<int, vector<vector<string>>>path_dict;
+    dfs(root, mp, path, path_dict, lvl);
+    for(auto it: path_dict) {
+        if(it.second.size()==1)
+            for(string node: it.second[0]) {
+                res += node[0];
+            }
     }
     cout<<"PART 3:: "<<res<<"\n";
 }

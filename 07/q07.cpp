@@ -7,6 +7,9 @@
 #include<assert.h>
 using namespace std;
 
+#define ll long long
+#define ull unsigned long long
+
 map<char, vector<char>> read_data(string filePath) {
 
     ifstream file(filePath);
@@ -119,36 +122,71 @@ string get_racetrack3() {
         "- + +   + =   =     =      =   == = - -     - =  =         =-=        -",
         "= + + +-- =-= ==-==-= --++ +  == == = +     - =  =    ==++=    =++=-=++",
         "+ + + =     +         =  + + == == ++ =     = =  ==   =   = =++=       ",
-        "= = + + +== +==     =++ == =+=  =  +  +==-=++ =   =++ --= + ="          ,
+        "= = + + +== +==     =++ == =+=  =  +  +==-=++ =   =++ --= + =          ",
         "+ ==- = + =   = =+= =   =       ++--          +     =   = = =--= ==++==",
         "=     ==- ==+-- = = = ++= +=--      ==+ ==--= +--+=-= ==- ==   =+=    =",
         "-               = = = =   +  +  ==+ = = +   =        ++    =          -",
         "-               = + + =   +  -  = + = = +   =        +     =          -",
         "--==++++==+=+++-= =-= =-+-=  =+-= =-= =--   +=++=+++==     -=+=++==+++-"};
+    int r = grid.size(), c = grid[0].length();
+    vector<pair<int,int>>dir = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    pair<int,int>me = {0, 1};
+    string track = "";
+    do{
+        if(grid[me.first][me.second] == ' ') {
+            track+='=';
+            break;
+        }
+        track += grid[me.first][me.second];
+        grid[me.first][me.second] = ' ';
+        for(pair<int,int>d: dir) {
+            int nx = me.first+d.first, ny = me.second+d.second;
+            if(nx>=0 && nx<r && ny>=0 && ny<c && grid[nx][ny]!=' ' && grid[nx][ny]!='S') {
+                me = {nx, ny};
+                break;
+            }
+        }
+    } while(true);
+    return track;
+}
+
+vector<pair<ll, ll>> get_race_score(string &RACETRACK, vector<string>&actions) {
+    int n = actions.size(), l = actions[0].length(), idx = 0;
+    vector<pair<ll, ll>>score(n, {10LL, 0LL});
+    int loop = 2024;
+    while(loop--)
+        for(int t=0;t<RACETRACK.length();t++) {
+            for(int i=0;i<n;i++) {
+                char track_op = RACETRACK[t], op = track_op;
+                if(track_op == '=') op = actions[i][idx%l];
+                if(op == '+') {
+                    score[i].first += 1;
+                } else if(op == '-') {
+                    if(score[i].first>0) score[i].first-=1;
+                }
+                score[i].second += score[i].first;
+            }
+            idx++;
+        }
+    return score;
 }
 
 void part3(map<char, vector<char>>mp) {
-    vector<char>actions;
+    vector<string>actions;
     string RACETRACK = get_racetrack3();
 
-    for(auto it: mp) actions = it.second;
-    int n = actions.size(), loop = 0, idx = 0, final_score = 0, curr_score = 10;
-
-    while(loop<2024) {
-        for(int t=0;t<RACETRACK.length();t++) {
-            char track_op = RACETRACK[t], op = track_op;
-            if(track_op == '=') op = actions[idx%n];
-            if(op == '+') {
-                curr_score += 1;
-            } else if(op == '-') {
-                if(curr_score>0) curr_score-=1;
-            }
-            final_score += curr_score;
-            idx++;
-        }
-        loop++;
+    for(auto it: mp) {
+        string t = "";
+        for(char c: it.second) t+=c;
+        actions.push_back(t);
     }
-    cout<<"PART 3:: "<<final_score<<"\n";
+
+    vector<pair<ll, ll>> scores = get_race_score(RACETRACK, actions);
+
+    ll res = 0;
+    for(pair<ll, ll>p: scores) if(p.second>scores[0].second) res++;
+    
+    cout<<"PART 3:: "<<res<<"\n";
 }
 
 int main() {

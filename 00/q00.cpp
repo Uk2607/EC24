@@ -4,6 +4,9 @@
 #include<string>
 using namespace std;
 
+#define ll long long
+#define ull unsigned long long
+
 vector<string> read_data(string filePath) {
 
     ifstream file(filePath);

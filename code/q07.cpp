@@ -6,6 +6,8 @@
 #include<map>
 using namespace std;
 
+const string RACETRACK = "S-=++=-==++=++=-=+=-=+=+=--=-=++=-==++=-+=-=+=-=+=+=++=-+==++=++=-=-=---=++==--+++==++=+=--==++==+++=++=+++=--=+=-=+=-+=-+=-+-=+=-=+=-+++=+==++++==---=+=+=-";                                                                   
+
 map<char, vector<char>> read_data(string filePath) {
 
     ifstream file(filePath);

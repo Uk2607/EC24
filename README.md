@@ -3,7 +3,7 @@
 
 | **Day** | **Status**     | **Code**        | **Input**          | **Stars** |
 |---------|----------------|------------------|---------------------|-----------|
-| [Day 01](https://everybody.codes/event/2024/quests/1) | Solved | [q01.cpp](./code/q01.cpp) | [input/01](./input/01/) | ★★★ |
+| [Day 01](https://everybody.codes/event/2024/quests/1) | Solved | [q01.cpp](./code/q01.cpp) | [1](./input/01/part_01.in), [2](./input/01/part_02.in), [3](./input/01/part_03.in) | ★★★ |
 | [Day 02](https://everybody.codes/event/2024/quests/2) | Solved | [q02.cpp](./code/q02.cpp) | [input/02](./input/02/) | ★★★ |
 | [Day 03](https://everybody.codes/event/2024/quests/3) | Solved | [q03.cpp](./code/q03.cpp) | [input/03](./input/03/) | ★★★ |
 | [Day 04](https://everybody.codes/event/2024/quests/4) | Solved | [q04.cpp](./code/q04.cpp) | [input/04](./input/04/) | ★★★ |

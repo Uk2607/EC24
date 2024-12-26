@@ -4,6 +4,7 @@
 #include<vector>
 #include<string>
 #include<map>
+#include<set>
 #include<assert.h>
 using namespace std;
 
@@ -150,24 +151,33 @@ string get_racetrack3() {
     return track;
 }
 
+void construct_new_actions(set<string>&action_set, string s, int plus_cnt, int minus_cnt, int eq_cnt){
+    if(plus_cnt==0 && minus_cnt==0 && eq_cnt==0) action_set.insert(s);
+    if(plus_cnt>0) construct_new_actions(action_set, s+"+", plus_cnt-1, minus_cnt, eq_cnt);
+    if(minus_cnt>0) construct_new_actions(action_set, s+"-", plus_cnt, minus_cnt-1, eq_cnt);
+    if(eq_cnt>0) construct_new_actions(action_set, s+"=", plus_cnt, minus_cnt, eq_cnt-1);
+}
+
 vector<pair<ll, ll>> get_race_score(string &RACETRACK, vector<string>&actions) {
     int n = actions.size(), l = actions[0].length(), idx = 0;
     vector<pair<ll, ll>>score(n, {10LL, 0LL});
     int loop = 2024;
-    while(loop--)
+    while(loop--) {
+        cout<<2024-loop<<"\n";
         for(int t=0;t<RACETRACK.length();t++) {
             for(int i=0;i<n;i++) {
                 char track_op = RACETRACK[t], op = track_op;
                 if(track_op == '=') op = actions[i][idx%l];
                 if(op == '+') {
-                    score[i].first += 1;
+                    score[i].first += 1LL;
                 } else if(op == '-') {
-                    if(score[i].first>0) score[i].first-=1;
+                    if(score[i].first>0) score[i].first-=1LL;
                 }
                 score[i].second += score[i].first;
             }
             idx++;
         }
+    }
     return score;
 }
 
@@ -181,12 +191,19 @@ void part3(map<char, vector<char>>mp) {
         actions.push_back(t);
     }
 
+    set<string>action_set;
+    construct_new_actions(action_set, "", 5, 3, 3);
+    if(action_set.count(actions[0])) action_set.erase(actions[0]);
+
+    for(string s: action_set) actions.push_back(s);
+
     vector<pair<ll, ll>> scores = get_race_score(RACETRACK, actions);
 
     ll res = 0;
     for(pair<ll, ll>p: scores) if(p.second>scores[0].second) res++;
     
     cout<<"PART 3:: "<<res<<"\n";
+    assert(res==3868LL);
 }
 
 int main() {

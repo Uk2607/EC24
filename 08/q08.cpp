@@ -47,9 +47,10 @@ void part_2(ll mul) {
     cout<<"PART 2 :: "<<res<<"\n";
 }
 
-void part_3(int ip) {
+void part_3(int mul) {
+    int mod = 10;
     ll totalStones = 202400000LL;
-    cout<<"PART 3 :: "<<ip<<"\n";
+    cout<<"PART 3 :: "<<mul<<"\n";
 }
 
 int main() {

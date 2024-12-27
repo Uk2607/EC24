@@ -7,10 +7,10 @@ using namespace std;
 #define ll long long
 #define ull unsigned long long
 
-vector<string> read_data(string filePath) {
+vector<int> read_data(string filePath) {
 
     ifstream file(filePath);
-    vector<string> arr;
+    vector<int> arr;
 
     string line;
 
@@ -19,21 +19,29 @@ vector<string> read_data(string filePath) {
         return arr;
     }
     while(getline(file, line)) {
-        arr.push_back(line);
+        arr.push_back(stoi(line));
     }
     file.close();
     return arr;
 }
 
-void part_1(vector<string>arr) {
-    cout<<"PART 1 :: "<<arr.size()<<"\n";
+int knapsack(vector<int>&options, int target) {
+    return 0;
 }
 
-void part_2(vector<string>arr) {
+void part_1(vector<int>arr) {
+    vector<int>validStamps = {1, 3, 5, 10};
+    int res = 0;
+    for(int x: arr)
+        res+=knapsack(validStamps, x);
+    cout<<"PART 1 :: "<<res<<"\n";
+}
+
+void part_2(vector<int>arr) {
     cout<<"PART 2 :: "<<arr.size()<<"\n";
 }
 
-void part_3(vector<string>arr) {
+void part_3(vector<int>arr) {
     cout<<"PART 3 :: "<<arr.size()<<"\n";
 }
 
@@ -41,9 +49,9 @@ int main() {
     int part;
     cout<<"Enter question part: ";
     cin>>part;
-    vector<string> ip;
+    vector<int> ip;
     
-    string folder_path = "__/";
+    string folder_path = "09/";
     switch (part)
     {
     case 1:

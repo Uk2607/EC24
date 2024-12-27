@@ -26,7 +26,17 @@ vector<int> read_data(string filePath) {
 }
 
 int knapsack(vector<int>&options, int target) {
-    return 0;
+    int limit=target+1;
+    vector<int>dp(limit, limit);
+    dp[0] = 0;
+    for(int i=0;i<=target;i++) {
+        for(int j=0;j<options.size();j++) {
+            if(options[j]<=i) {
+                dp[i] = min(dp[i], dp[i-options[j]]+1);
+            }
+        }
+    }
+    return dp[target];
 }
 
 void part_1(vector<int>arr) {
@@ -38,11 +48,19 @@ void part_1(vector<int>arr) {
 }
 
 void part_2(vector<int>arr) {
-    cout<<"PART 2 :: "<<arr.size()<<"\n";
+    vector<int>validStamps = {1, 3, 5, 10, 15, 16, 20, 24, 25, 30};
+    int res = 0;
+    for(int x: arr)
+        res+=knapsack(validStamps, x);
+    cout<<"PART 2 :: "<<res<<"\n";
 }
 
 void part_3(vector<int>arr) {
-    cout<<"PART 3 :: "<<arr.size()<<"\n";
+    vector<int>validStamps = {1, 3, 5, 10, 15, 16, 20, 24, 25, 30, 37, 38, 49, 50, 74, 75, 100, 101};
+    int res = 0;
+    for(int x: arr)
+        res+=knapsack(validStamps, x);
+    cout<<"PART 3 :: "<<res<<"\n";
 }
 
 int main() {

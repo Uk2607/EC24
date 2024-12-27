@@ -56,6 +56,7 @@ void part_2(vector<int>arr) {
 }
 
 void part_3(vector<int>arr) {
+    // TODO: fix
     vector<int>validStamps = {1, 3, 5, 10, 15, 16, 20, 24, 25, 30, 37, 38, 49, 50, 74, 75, 100, 101};
     int res = 0, idx = 0;
     for(int T: arr) {

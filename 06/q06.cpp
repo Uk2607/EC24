@@ -49,8 +49,7 @@ void print(map<string, vector<string>>mp) {
     }
 }
 
-void dfs(string u, map<string, vector<string>>&mp, vector<string>&path, map<int, vector<vector<string>>>&path_dict, int lvl = INT_MAX-1) {
-    if(path.size()>lvl) return;
+void dfs(string u, map<string, vector<string>>&mp, vector<string>&path, map<int, vector<vector<string>>>&path_dict) {
     if(u == "@") {
         path_dict[path.size()].push_back(path);
         return;
@@ -81,40 +80,37 @@ void part1n2(map<string, vector<string>>&mp, int part) {
 void part3(map<string, vector<string>>mp) {
     string res = "";
     string node = "RR";
-    queue<string>q;
+    queue<vector<string>>q;
     set<string>seen;
     int lvl = 1;
-    q.push(node);
+    q.push({node});
     seen.insert(node);
+    vector<string>strongest_path;
     while(!q.empty()) {
         int n = q.size(), fruit_cnt = 0;
         while(n--) {
-            node = q.front();
+            vector<string>path = q.front();
+            node = path.back();
             q.pop();
             for(string v: mp[node]) {
                 if(v == "@") {
+                    strongest_path = path;
+                    strongest_path.push_back(v);
                     fruit_cnt++;
                     continue;
                 }
                 if(seen.count(v)) continue;
-                q.push(v);
+                vector<string>t = path;
+                t.push_back(v);
+                q.push(t);
                 seen.insert(v);
             }
         }
         lvl++;
         if(fruit_cnt == 1) break;
     }
+    for(string s: strongest_path) res+=s[0];
     
-    string root = "RR";
-    vector<string>path = {root};
-    map<int, vector<vector<string>>>path_dict;
-    dfs(root, mp, path, path_dict, lvl);
-    for(auto it: path_dict) {
-        if(it.second.size()==1)
-            for(string node: it.second[0]) {
-                res += node[0];
-            }
-    }
     cout<<"PART 3:: "<<res<<"\n";
 }
 

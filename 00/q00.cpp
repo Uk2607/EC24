@@ -41,7 +41,6 @@ int main() {
     int part;
     cout<<"Enter question part: ";
     cin>>part;
-    vector<int>ememyPower(26, 0);
     vector<string> ip;
     
     string folder_path = "__/";

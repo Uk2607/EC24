@@ -7,7 +7,7 @@ using namespace std;
 #define ll long long
 #define ull unsigned long long
 
-vector<string> read_data(string filePath) {
+string read_data(string filePath) {
 
     ifstream file(filePath);
     vector<string> arr;
@@ -16,56 +16,51 @@ vector<string> read_data(string filePath) {
 
     if (!file.is_open()) {
         cerr << "Failed to open file: " << filePath << endl;
-        return arr;
+        return line;
     }
-    while(getline(cin, line)) {
-        arr.push_back(line);
-    }
+    getline(file, line);
     file.close();
-    return arr;
+    return line;
 }
 
-void part_1(vector<string>arr) {
-    cout<<"PART 1 :: "<<arr.size()<<"\n";
+void part_1(int ip) {
+    cout<<"PART 1 :: "<<ip<<"\n";
 }
 
-void part_2(vector<string>arr) {
-    cout<<"PART 2 :: "<<arr.size()<<"\n";
+void part_2(int ip) {
+    cout<<"PART 2 :: "<<ip<<"\n";
 }
 
-void part_3(vector<string>arr) {
-    cout<<"PART 3 :: "<<arr.size()<<"\n";
+void part_3(int ip) {
+    cout<<"PART 3 :: "<<ip<<"\n";
 }
 
 int main() {
     int part;
     cout<<"Enter question part: ";
     cin>>part;
-    vector<int>ememyPower(26, 0);
-    vector<string> ip;
-    
-    string folder_path = "__/";
+    string ip, folder_path = "08/";
     switch (part)
     {
     case 1:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1(stoi(ip));
         break;
     case 2:
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_2(stoi(ip));
         break;
     case 3:
         ip = read_data(folder_path+"03.in");
-        part_3(ip);
+        part_3(stoi(ip));
         break;
     default:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1(stoi(ip));
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_2(stoi(ip));
         ip = read_data(folder_path+"03.in");
-        part_3(ip);
+        part_3(stoi(ip));
         break;
     }
     return 0;

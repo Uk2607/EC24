@@ -24,7 +24,15 @@ string read_data(string filePath) {
 }
 
 void part_1(int ip) {
-    cout<<"PART 1 :: "<<ip<<"\n";
+    int cLayers = sqrt(ip), res;
+    if(cLayers*cLayers == ip){
+        res = 0;
+        return;
+    }
+    int missing_stones = pow(cLayers+1, 2)-ip;
+    int pWidth = (cLayers+1)*2-1;
+    res = missing_stones*pWidth;
+    cout<<"PART 1 :: "<<res<<"\n";
 }
 
 void part_2(int ip) {

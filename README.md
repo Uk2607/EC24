@@ -8,7 +8,7 @@
 | [Day 03](https://everybody.codes/event/2024/quests/3) | Solved | [q03.cpp](./03/q03.cpp) | [01](./03/01.in) [02](./03/02.in) [03](./03/03.in) | ★★★ |
 | [Day 04](https://everybody.codes/event/2024/quests/4) | Solved | [q04.cpp](./04/q04.cpp) | [01](./04/01.in) [02](./04/02.in) [03](./04/03.in) | ★★★ |
 | [Day 05](https://everybody.codes/event/2024/quests/5) | Open | [q05.cpp](./05/q05.cpp) | [01](./05/01.in) [02](./05/02.in) [03](./05/03.in) | |
-| [Day 06](https://everybody.codes/event/2024/quests/6) | In Progress | [q06.cpp](./06/q06.cpp) | [01](./06/01.in) [02](./06/02.in) [03](./06/03.in) | ★★★ |
+| [Day 06](https://everybody.codes/event/2024/quests/6) | Solved | [q06.cpp](./06/q06.cpp) | [01](./06/01.in) [02](./06/02.in) [03](./06/03.in) | ★★★ |
 | [Day 07](https://everybody.codes/event/2024/quests/7) | Solved | [q07.cpp](./07/q07.cpp) | [01](./07/01.in) [02](./07/02.in) [03](./07/03.in) | ★★★ |
 | [Day 08](https://everybody.codes/event/2024/quests/8) | In Progress | [q08.cpp](./08/q08.cpp) | [01](./08/01.in) [02](./08/02.in) [03](./08/03.in) | ★★ |
 | [Day 09](https://everybody.codes/event/2024/quests/9) | In Progress | [q09.cpp](./09/q09.cpp) | [01](./09/01.in) [02](./09/02.in) [03](./09/03.in) | ★★ |

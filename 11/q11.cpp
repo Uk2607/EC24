@@ -28,9 +28,9 @@ map<char, vector<char>> read_data(string filePath) {
     return mp;
 }
 
-void part_1(map<char, vector<char>>mp, int target_day) {
+void part_1n2(map<char, vector<char>>mp, char src, int target_day, int part=1) {
     queue<char>q;
-    q.push('A');
+    q.push(src);
     int d = 1;
     while(d<=target_day) {
         d++;
@@ -48,11 +48,7 @@ void part_1(map<char, vector<char>>mp, int target_day) {
         }
         // cout<<"\n";
     }
-    cout<<"PART 1 :: "<<q.size()<<"\n";
-}
-
-void part_2(map<char, vector<char>>mp) {
-    cout<<"PART 2 :: "<<mp.size()<<"\n";
+    cout<<"PART "<<part<<" :: "<<q.size()<<"\n";
 }
 
 void part_3(map<char, vector<char>>mp) {
@@ -70,11 +66,11 @@ int main() {
     {
     case 1:
         ip = read_data(folder_path+"01.in");
-        part_1(ip, 4);
+        part_1n2(ip, 'A', 4, 1);
         break;
     case 2:
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_1n2(ip, 'Z', 10, 2);
         break;
     case 3:
         ip = read_data(folder_path+"03.in");
@@ -82,9 +78,9 @@ int main() {
         break;
     default:
         ip = read_data(folder_path+"01.in");
-        part_1(ip, 4);
+        part_1n2(ip, 'A', 4);
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_1n2(ip, 'Z', 10, 2);
         ip = read_data(folder_path+"03.in");
         part_3(ip);
         break;

@@ -10,10 +10,10 @@
 | [Day 05](https://everybody.codes/event/2024/quests/5) | In Progress | [q05.cpp](./05/q05.cpp) | [01](./05/01.in) [02](./05/02.in) [03](./05/03.in) | |
 | [Day 06](https://everybody.codes/event/2024/quests/6) | In Progress | [q06.cpp](./06/q06.cpp) | [01](./06/01.in) [02](./06/02.in) [03](./06/03.in) | ★★★ |
 | [Day 07](https://everybody.codes/event/2024/quests/7) | Solved | [q07.cpp](./07/q07.cpp) | [01](./07/01.in) [02](./07/02.in) [03](./07/03.in) | ★★★ |
-| [Day 08](https://everybody.codes/event/2024/quests/8) | Open | [q08.cpp](./08/q08.cpp) | [01](./08/01.in) [02](./08/02.in) [03](./08/03.in) | |
-| [Day 09](https://everybody.codes/event/2024/quests/9) | Open | [q09.cpp](./09/q09.cpp) | [01](./09/01.in) [02](./09/02.in) [03](./09/03.in) | |
-| [Day 10](https://everybody.codes/event/2024/quests/10) | Open | [q10.cpp](./10/q10.cpp) | [01](./10/01.in) [02](./10/02.in) [03](./10/03.in) | |
-| [Day 11](https://everybody.codes/event/2024/quests/11) | Open | [q11.cpp](./11/q11.cpp) | [01](./11/01.in) [02](./11/02.in) [03](./11/03.in) | |
+| [Day 08](https://everybody.codes/event/2024/quests/8) | Open | [q08.cpp](./08/q08.cpp) | [01](./08/01.in) [02](./08/02.in) [03](./08/03.in) | ★★ |
+| [Day 09](https://everybody.codes/event/2024/quests/9) | Open | [q09.cpp](./09/q09.cpp) | [01](./09/01.in) [02](./09/02.in) [03](./09/03.in) | ★★ |
+| [Day 10](https://everybody.codes/event/2024/quests/10) | Open | [q10.cpp](./10/q10.cpp) | [01](./10/01.in) [02](./10/02.in) [03](./10/03.in) | ★★ |
+| [Day 11](https://everybody.codes/event/2024/quests/11) | Open | [q11.cpp](./11/q11.cpp) | [01](./11/01.in) [02](./11/02.in) [03](./11/03.in) | ★★ |
 | [Day 12](https://everybody.codes/event/2024/quests/12) | Open | [q12.cpp](./12/q12.cpp) | [01](./12/01.in) [02](./12/02.in) [03](./12/03.in) | |
 | [Day 13](https://everybody.codes/event/2024/quests/13) | Open | [q13.cpp](./13/q13.cpp) | [01](./13/01.in) [02](./13/02.in) [03](./13/03.in) | |
 | [Day 14](https://everybody.codes/event/2024/quests/14) | Open | [q14.cpp](./14/q14.cpp) | [01](./14/01.in) [02](./14/02.in) [03](./14/03.in) | |

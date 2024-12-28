@@ -5,15 +5,16 @@
 #include<string>
 #include<map>
 #include<set>
+#include<assert.h>
 using namespace std;
 
 #define ll long long
 #define ull unsigned long long
 
-map<char, vector<char>> read_data(string filePath) {
+map<string, vector<string>> read_data(string filePath) {
 
     ifstream file(filePath);
-    map<char, vector<char>> mp;
+    map<string, vector<string>> mp;
 
     string line;
 
@@ -22,14 +23,27 @@ map<char, vector<char>> read_data(string filePath) {
         return mp;
     }
     while(getline(file, line)) {
-        for(int i=2;i<line.length();i+=2) mp[line[0]].push_back(line[i]);
+        stringstream ss(line);
+        string node, src;
+        bool flag = false;
+        while(getline(ss, node, ':')) {
+            if(!flag) {
+                src = node;
+                mp[node] = {};
+                flag = true;
+            } else {
+                stringstream arr(node);
+                string v;
+                while(getline(arr, v, ',')) mp[src].push_back(v);
+            }
+        }
     }
     file.close();
     return mp;
 }
 
-void part_1n2(map<char, vector<char>>mp, char src, int target_day, int part=1) {
-    queue<char>q;
+int solve(map<string, vector<string>>&mp, string src, int target_day) {
+    queue<string>q;
     q.push(src);
     int d = 1;
     while(d<=target_day) {
@@ -37,10 +51,10 @@ void part_1n2(map<char, vector<char>>mp, char src, int target_day, int part=1) {
         int n = q.size();
         // cout<<d<<":: ";
         while(n--) {
-            char u = q.front();
+            string u = q.front();
             q.pop();
             // cout<<u<<"->[ ";
-            for(char v: mp[u]) {
+            for(string v: mp[u]) {
                 // cout<<v<<" ";
                 q.push(v);
             }
@@ -48,41 +62,55 @@ void part_1n2(map<char, vector<char>>mp, char src, int target_day, int part=1) {
         }
         // cout<<"\n";
     }
-    cout<<"PART "<<part<<" :: "<<q.size()<<"\n";
+    return q.size();
 }
 
-void part_3(map<char, vector<char>>mp) {
-    cout<<"PART 3 :: "<<mp.size()<<"\n";
+void part_1n2(map<string, vector<string>>mp, string src, int target_day, int part=1) {
+    int res = solve(mp, src, target_day);
+    if(part==1) assert(res==39);
+    if(part==2) assert(res==312384);
+    cout<<"PART "<<part<<" :: "<<res<<"\n";
+}
+
+void part_3(map<string, vector<string>>mp, int target_day) {
+    int mx = INT_MIN, mn = INT_MAX, idx=0;
+    for(auto it: mp) {
+        cout<<(++idx)<<": "<<it.first<<"\n";
+        int x = solve(mp, it.first, target_day);
+        mx = max(mx, x);
+        mn = min(mn, x);
+    }
+    cout<<"PART 3 :: "<<mx-mn<<"\n";
 }
 
 int main() {
     int part;
     cout<<"Enter question part: ";
     cin>>part;
-    map<char, vector<char>> ip;
+    map<string, vector<string>> mp;
     
     string folder_path = "11/";
     switch (part)
     {
     case 1:
-        ip = read_data(folder_path+"01.in");
-        part_1n2(ip, 'A', 4, 1);
+        mp = read_data(folder_path+"01.in");
+        part_1n2(mp, "A", 4, 1);
         break;
     case 2:
-        ip = read_data(folder_path+"02.in");
-        part_1n2(ip, 'Z', 10, 2);
+        mp = read_data(folder_path+"02.in");
+        part_1n2(mp, "Z", 10, 2);
         break;
     case 3:
-        ip = read_data(folder_path+"03.in");
-        part_3(ip);
+        mp = read_data(folder_path+"03.in");
+        part_3(mp, 20);
         break;
     default:
-        ip = read_data(folder_path+"01.in");
-        part_1n2(ip, 'A', 4);
-        ip = read_data(folder_path+"02.in");
-        part_1n2(ip, 'Z', 10, 2);
-        ip = read_data(folder_path+"03.in");
-        part_3(ip);
+        mp = read_data(folder_path+"01.in");
+        part_1n2(mp, "A", 4, 1);
+        mp = read_data(folder_path+"02.in");
+        part_1n2(mp, "Z", 10, 2);
+        mp = read_data(folder_path+"03.in");
+        part_3(mp, 20);
         break;
     }
     return 0;

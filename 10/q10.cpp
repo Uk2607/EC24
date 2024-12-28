@@ -93,6 +93,7 @@ void part_2(vector<vector<string>>arr) {
 }
 
 void part_3(vector<vector<string>>arr) {
+    // TODO: needs new input strategy also using xor will be helpful
     cout<<"PART 3 :: "<<arr.size()<<"\n";
 }
 

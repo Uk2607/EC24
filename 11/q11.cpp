@@ -42,41 +42,34 @@ map<string, vector<string>> read_data(string filePath) {
     return mp;
 }
 
-int solve(map<string, vector<string>>&mp, string src, int target_day) {
-    queue<string>q;
-    q.push(src);
+ll solve(map<string, vector<string>>&mp, string src, int target_day) {
+    map<string, ll>dp;
+    dp[src] = 1;
     int d = 1;
     while(d<=target_day) {
-        d++;
-        int n = q.size();
-        // cout<<d<<":: ";
-        while(n--) {
-            string u = q.front();
-            q.pop();
-            // cout<<u<<"->[ ";
-            for(string v: mp[u]) {
-                // cout<<v<<" ";
-                q.push(v);
-            }
-            // cout<<"] ";
+        map<string, ll>new_dp;
+        for(auto [u, cnt]: dp) {
+            for(string v: mp[u]) new_dp[v]+=cnt;
         }
-        // cout<<"\n";
+        dp = new_dp;
+        d++;
     }
-    return q.size();
+    ll res = 0;
+    for(auto [u, x]: dp) res+=x;
+    return res;
 }
 
 void part_1n2(map<string, vector<string>>mp, string src, int target_day, int part=1) {
-    int res = solve(mp, src, target_day);
-    if(part==1) assert(res==39);
-    if(part==2) assert(res==312384);
+    ll res = solve(mp, src, target_day);
+    if(part==1) assert(res==39LL);
+    if(part==2) assert(res==312384LL);
     cout<<"PART "<<part<<" :: "<<res<<"\n";
 }
 
 void part_3(map<string, vector<string>>mp, int target_day) {
-    int mx = INT_MIN, mn = INT_MAX, idx=0;
+    ll mx = LLONG_MIN, mn = LLONG_MAX, idx=0;
     for(auto it: mp) {
-        cout<<(++idx)<<": "<<it.first<<"\n";
-        int x = solve(mp, it.first, target_day);
+        ll x = solve(mp, it.first, target_day);
         mx = max(mx, x);
         mn = min(mn, x);
     }

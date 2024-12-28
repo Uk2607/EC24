@@ -73,6 +73,7 @@ void part_3(map<string, vector<string>>mp, int target_day) {
         mx = max(mx, x);
         mn = min(mn, x);
     }
+    assert(mx-mn == 1274520320218LL);
     cout<<"PART 3 :: "<<mx-mn<<"\n";
 }
 

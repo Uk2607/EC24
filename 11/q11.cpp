@@ -10,48 +10,67 @@ using namespace std;
 #define ll long long
 #define ull unsigned long long
 
-vector<string> read_data(string filePath) {
+map<char, vector<char>> read_data(string filePath) {
 
     ifstream file(filePath);
-    vector<string> arr;
+    map<char, vector<char>> mp;
 
     string line;
 
     if (!file.is_open()) {
         cerr << "Failed to open file: " << filePath << endl;
-        return arr;
+        return mp;
     }
     while(getline(file, line)) {
-        arr.push_back(line);
+        for(int i=2;i<line.length();i+=2) mp[line[0]].push_back(line[i]);
     }
     file.close();
-    return arr;
+    return mp;
 }
 
-void part_1(vector<string>arr) {
-    cout<<"PART 1 :: "<<arr.size()<<"\n";
+void part_1(map<char, vector<char>>mp, int target_day) {
+    queue<char>q;
+    q.push('A');
+    int d = 1;
+    while(d<=target_day) {
+        d++;
+        int n = q.size();
+        // cout<<d<<":: ";
+        while(n--) {
+            char u = q.front();
+            q.pop();
+            // cout<<u<<"->[ ";
+            for(char v: mp[u]) {
+                // cout<<v<<" ";
+                q.push(v);
+            }
+            // cout<<"] ";
+        }
+        // cout<<"\n";
+    }
+    cout<<"PART 1 :: "<<q.size()<<"\n";
 }
 
-void part_2(vector<string>arr) {
-    cout<<"PART 2 :: "<<arr.size()<<"\n";
+void part_2(map<char, vector<char>>mp) {
+    cout<<"PART 2 :: "<<mp.size()<<"\n";
 }
 
-void part_3(vector<string>arr) {
-    cout<<"PART 3 :: "<<arr.size()<<"\n";
+void part_3(map<char, vector<char>>mp) {
+    cout<<"PART 3 :: "<<mp.size()<<"\n";
 }
 
 int main() {
     int part;
     cout<<"Enter question part: ";
     cin>>part;
-    vector<string> ip;
+    map<char, vector<char>> ip;
     
-    string folder_path = "__/";
+    string folder_path = "11/";
     switch (part)
     {
     case 1:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1(ip, 4);
         break;
     case 2:
         ip = read_data(folder_path+"02.in");
@@ -63,7 +82,7 @@ int main() {
         break;
     default:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1(ip, 4);
         ip = read_data(folder_path+"02.in");
         part_2(ip);
         ip = read_data(folder_path+"03.in");

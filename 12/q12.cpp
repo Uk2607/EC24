@@ -43,7 +43,7 @@ void part_1(vector<string>arr) {
         for(pair<int,int>p: playres) {
             int dy = t.second-p.second;
             int dx = t.first-p.first;
-            cout<<(char)('A'+idx++)<<": "<<dx<<", "<<dy<<"\n";
+            cout<<(char)('A'+idx++)<<": "<<dx<<", "<<dy<<"\n"; // 3*n, 3n+1, 3n-1
         }
     }
     cout<<"PART 1 :: "<<arr.size()<<"\n";

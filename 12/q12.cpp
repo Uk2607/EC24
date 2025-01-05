@@ -29,6 +29,23 @@ vector<string> read_data(string filePath) {
 }
 
 void part_1(vector<string>arr) {
+    int r = arr.size(), c = arr[0].length();
+    vector<pair<int,int>>playres, target;
+    for(int i=0;i<r;i++)
+        for(int j=0;j<c;j++) {
+            if(arr[i][j]!='.' && arr[i][j]!='T' && arr[i][j]!='=') playres.push_back({i, j});
+            if(arr[i][j]=='T') target.push_back({i, j}); 
+        }
+    int tidx = 0;
+    for(pair<int,int>t: target) {
+        int dist = 0, idx = 0;
+        cout<<++tidx<<"::\n";
+        for(pair<int,int>p: playres) {
+            int dy = t.second-p.second;
+            int dx = t.first-p.first;
+            cout<<(char)('A'+idx++)<<": "<<dx<<", "<<dy<<"\n";
+        }
+    }
     cout<<"PART 1 :: "<<arr.size()<<"\n";
 }
 

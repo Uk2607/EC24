@@ -61,7 +61,7 @@ int min_path(vector<string>&grid, int H, int W, pair<int,int>me, pair<int,int>to
     return dist[to.first][to.second];
 }
 
-void part_1(vector<string>arr) {
+void part_1n2(vector<string>arr, int part) {
     int H = arr.size(), W = arr[0].length();
     pair<int,int>me, to;
     for(int i=0;i<H;i++)
@@ -70,15 +70,24 @@ void part_1(vector<string>arr) {
             else if(arr[i][j] == 'E') { to = {i, j}; arr[i][j] = '0'; }
     
     int res = min_path(arr, H, W, me, to);
-    cout<<"PART 1 :: "<<res<<"\n"; // 143
-}
-
-void part_2(vector<string>arr) {
-    cout<<"PART 2 :: "<<arr.size()<<"\n";
+    if(part == 1) cout<<"PART 1 :: "<<res<<"\n"; // 143
+    else cout<<"PART 2 :: "<<res<<"\n"; // 662
 }
 
 void part_3(vector<string>arr) {
-    cout<<"PART 3 :: "<<arr.size()<<"\n";
+    int H = arr.size(), W = arr[0].length();
+    vector<pair<int,int>>src;
+    pair<int,int>to;
+    for(int i=0;i<H;i++)
+        for(int j=0;j<W;j++)
+            if(arr[i][j] == 'S') { src.push_back({i, j}); arr[i][j] = '0'; }
+            else if(arr[i][j] == 'E') { to = {i, j}; arr[i][j] = '0'; }
+    
+    int res = INT_MAX, idx = 0;
+    for(pair<int, int>me: src) {
+        res = min(res, min_path(arr, H, W, me, to));
+    }
+    cout<<"PART 3 :: "<<res<<"\n"; // 529
 }
 
 int main() {
@@ -92,11 +101,11 @@ int main() {
     {
     case 1:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1n2(ip, 1);
         break;
     case 2:
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_1n2(ip, 2);
         break;
     case 3:
         ip = read_data(folder_path+"03.in");
@@ -104,9 +113,9 @@ int main() {
         break;
     default:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1n2(ip, 1);
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_1n2(ip, 2);
         ip = read_data(folder_path+"03.in");
         part_3(ip);
         break;

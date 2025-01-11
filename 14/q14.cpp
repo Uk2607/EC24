@@ -10,6 +10,17 @@ using namespace std;
 #define ll long long
 #define ull unsigned long long
 
+struct Pos {
+    int x, y, z;
+    bool operator<(const Pos &p) const {
+        if(x == p.x) {
+            if(y == p.y) return z<p.z;
+            return y<p.y;
+        }
+        return x<p.x;
+    }
+};
+
 vector<vector<string>> read_data(string filePath) {
 
     ifstream file(filePath);
@@ -21,7 +32,7 @@ vector<vector<string>> read_data(string filePath) {
         cerr << "Failed to open file: " << filePath << endl;
         return arr;
     }
-    while(getline(cin, line)) {
+    while(getline(file, line)) {
         stringstream ss(line);
         vector<string>t;
         while(getline(ss, ins, ',')) t.push_back(ins);
@@ -42,7 +53,26 @@ void part_1(vector<string>arr) {
 }
 
 void part_2(vector<vector<string>>arr) {
-    cout<<"PART 2 :: "<<arr.size()<<"\n";
+    set<Pos>st;
+    for(vector<string> path: arr) {
+        Pos p = {0, 0, 0};
+        for(string ins: path) {
+            char dir = ins[0];
+            int steps = stoi(ins.substr(1));
+            for(int t = 0; t<steps; t++) {
+                if(dir == 'U') --p.y;
+                else if(dir == 'D') ++p.y;
+                else if(dir == 'L') --p.x;
+                else if(dir == 'R') ++p.x;
+                else if(dir == 'F') ++p.z;
+                else  --p.z;
+                st.insert(p);
+            }
+        }
+    }
+    int res = 0;
+    cout<<st.size()<<"\n";
+    cout<<"PART 2 :: "<<res<<"\n";
 }
 
 void part_3(vector<vector<string>>arr) {

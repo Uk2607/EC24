@@ -98,13 +98,13 @@ void part_3(vector<vector<string>>arr) {
     }
     int mnDist = INT_MAX;
     for(int y=mnY;y<=mxY;y++) {
-        Pos tr = {0, y, 0};
-        if(st.find(tr) == st.end()) continue;
+        if(st.find({0, y, 0}) == st.end()) continue;
         int dist = 0;
-        for(Pos p: leaves) {
-            dist += abs(p.x-tr.x) + abs(p.y-tr.y) + abs(p.z-tr.z);
+        for(Pos p: leaves) dist += abs(p.x) + abs(p.y-y) + abs(p.z);
+        if(dist <= mnDist) {
+            mnDist = dist;
+            cout<<"Y:"<<abs(y)<<": "<<dist<<"\n";
         }
-        mnDist = min(mnDist, dist);
     }
     cout<<"PART 3 :: "<<mnDist<<"\n"; // 1 _ _ _ != 1132
 }

@@ -100,11 +100,12 @@ void part_3(vector<vector<string>>arr) {
     for(int y=mnY;y<=mxY;y++) {
         if(st.find({0, y, 0}) == st.end()) continue;
         int dist = 0;
-        for(Pos p: leaves) dist += abs(p.x) + abs(p.y-y) + abs(p.z);
+        for(Pos p: leaves) dist += (abs(p.x) + abs(p.y-y) + abs(p.z));
+        cout<<"Y:"<<abs(y)<<", D->["<<dist<<"]";
         if(dist <= mnDist) {
             mnDist = dist;
-            cout<<"Y:"<<abs(y)<<": "<<dist<<"\n";
-        }
+            cout<<"*";
+        } cout<<"\n";
     }
     cout<<"PART 3 :: "<<mnDist<<"\n"; // 1 _ _ _ != 1132
 }

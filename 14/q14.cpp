@@ -74,8 +74,9 @@ void part_2(vector<vector<string>>arr) {
 }
 
 void part_3(vector<vector<string>>arr) {
+    set<Pos>st;
     vector<Pos>leaves;
-    int mnY = INT_MAX;
+    int mnY = INT_MAX, mxY = INT_MIN;
     for(vector<string> path: arr) {
         Pos p = {0, 0, 0};
         for(string ins: path) {
@@ -88,21 +89,24 @@ void part_3(vector<vector<string>>arr) {
                 else if(dir == 'R') ++p.x;
                 else if(dir == 'F') ++p.z;
                 else  --p.z;
+                st.insert(p);
             }
         }
         leaves.push_back(p);
         mnY = min(mnY, p.y);
+        mxY = max(mxY, p.y);
     }
     int mnDist = INT_MAX;
-    for(int y=0;y>=mnY;y--) {
+    for(int y=mnY;y<=mxY;y++) {
         Pos tr = {0, y, 0};
+        if(st.find(tr) == st.end()) continue;
         int dist = 0;
         for(Pos p: leaves) {
             dist += abs(p.x-tr.x) + abs(p.y-tr.y) + abs(p.z-tr.z);
         }
         mnDist = min(mnDist, dist);
     }
-    cout<<"PART 3 :: "<<mnDist<<"\n"; // 1 _ _ _
+    cout<<"PART 3 :: "<<mnDist<<"\n"; // 1 _ _ _ != 1132
 }
 
 int main() {

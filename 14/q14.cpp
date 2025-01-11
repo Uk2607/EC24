@@ -70,13 +70,39 @@ void part_2(vector<vector<string>>arr) {
             }
         }
     }
-    int res = 0;
-    cout<<st.size()<<"\n";
-    cout<<"PART 2 :: "<<res<<"\n";
+    cout<<"PART 2 :: "<<st.size()<<"\n";
 }
 
 void part_3(vector<vector<string>>arr) {
-    cout<<"PART 3 :: "<<arr.size()<<"\n";
+    vector<Pos>leaves;
+    int mnY = INT_MAX;
+    for(vector<string> path: arr) {
+        Pos p = {0, 0, 0};
+        for(string ins: path) {
+            char dir = ins[0];
+            int steps = stoi(ins.substr(1));
+            for(int t = 0; t<steps; t++) {
+                if(dir == 'U') --p.y;
+                else if(dir == 'D') ++p.y;
+                else if(dir == 'L') --p.x;
+                else if(dir == 'R') ++p.x;
+                else if(dir == 'F') ++p.z;
+                else  --p.z;
+            }
+        }
+        leaves.push_back(p);
+        mnY = min(mnY, p.y);
+    }
+    int mnDist = INT_MAX;
+    for(int y=0;y>=mnY;y--) {
+        Pos tr = {0, y, 0};
+        int dist = 0;
+        for(Pos p: leaves) {
+            dist += abs(p.x-tr.x) + abs(p.y-tr.y) + abs(p.z-tr.z);
+        }
+        mnDist = min(mnDist, dist);
+    }
+    cout<<"PART 3 :: "<<mnDist<<"\n"; // 1 _ _ _
 }
 
 int main() {

@@ -44,7 +44,7 @@ int get_min_path(vector<string>&arr, pair<int,int>&me, int H, int W) {
         while(sz--) {
             auto p = q.front();
             q.pop();
-            if(arr[p.first][p.second] != '.' && arr[p.first][p.second] != '#') return 2*len;
+            if(arr[p.first][p.second] != '.' && arr[p.first][p.second] != '#' && arr[p.first][p.second] != '~') return 2*len;
             for(pair<int,int> d: dirs) {
                 pair<int,int>new_p = {p.first+d.first, p.second+d.second};
                 if(isInside(new_p, H, W) && arr[new_p.first][new_p.second] != '#' && !vis[new_p.first][new_p.second]) {
@@ -59,16 +59,9 @@ int get_min_path(vector<string>&arr, pair<int,int>&me, int H, int W) {
 }
 
 void part_1(vector<string>arr) {
-    pair<int,int>me, pos;
+    pair<int,int>me;
     int H = arr.size(), W = arr[0].length();
-    for(int j=0;j<W;j++) if(arr[0][j] == '.') { me = {0, j}; arr[0][j] = 'H'; break; }
-    map<char, set<pair<int,int>>>targets;
-    for(int i=1;i<H;i++) {
-        for(int j=0;j<W;j++) {
-            if(arr[i][j] != '.' && arr[i][j] != '#' && arr[i][j] != '~')
-                targets[arr[i][j]].insert({i, j});
-        }
-    }
+    for(int j=0;j<W;j++) if(arr[0][j] == '.') { me = {0, j}; break; }
     int min_path = get_min_path(arr, me, H, W);
     cout<<"PART 1 :: "<<min_path<<"\n"; // 196
 }

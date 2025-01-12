@@ -44,7 +44,7 @@ int get_min_path(vector<string>&arr, pair<int,int>&me, int H, int W) {
         while(sz--) {
             auto p = q.front();
             q.pop();
-            if(arr[p.first][p.second] != '.' && arr[p.first][p.second] != '#' && arr[p.first][p.second] != '~') return 2*len;
+            if(arr[p.first][p.second] != '.' && arr[p.first][p.second] != '#') return 2*len;
             for(pair<int,int> d: dirs) {
                 pair<int,int>new_p = {p.first+d.first, p.second+d.second};
                 if(isInside(new_p, H, W) && arr[new_p.first][new_p.second] != '#' && !vis[new_p.first][new_p.second]) {

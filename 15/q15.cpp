@@ -34,7 +34,7 @@ bool isInside(pair<int,int>&p, int H, int W) {
     return p.first>=0 && p.first<H && p.second>=0 && p.second<W;
 }
 
-int get_min_path(vector<string>&arr, pair<int,int>&me, int H, int W, char &c) {
+int get_min_path(vector<string>&arr, pair<int,int>&me, int H, int W) {
     vector<vector<bool>>vis(H, vector<bool>(W, false));
     queue<pair<int,int>>q;
     int len = 0;
@@ -44,11 +44,7 @@ int get_min_path(vector<string>&arr, pair<int,int>&me, int H, int W, char &c) {
         while(sz--) {
             auto p = q.front();
             q.pop();
-            if(arr[p.first][p.second] != '.' && arr[p.first][p.second] != '#' && arr[p.first][p.second] != '~') {
-                me = p;
-                c = arr[p.first][p.second];
-                return len;
-            }
+            if(arr[p.first][p.second] != '.' && arr[p.first][p.second] != '#' && arr[p.first][p.second] != '~') return 2*len;
             for(pair<int,int> d: dirs) {
                 pair<int,int>new_p = {p.first+d.first, p.second+d.second};
                 if(isInside(new_p, H, W) && arr[new_p.first][new_p.second] != '#' && !vis[new_p.first][new_p.second]) {
@@ -62,32 +58,37 @@ int get_min_path(vector<string>&arr, pair<int,int>&me, int H, int W, char &c) {
     return -1;
 }
 
-void part_1n2(vector<string>arr, int part) {
+void part_1(vector<string>arr) {
     pair<int,int>me, pos;
     int H = arr.size(), W = arr[0].length();
-    for(int j=0;j<W;j++) if(arr[0][j] == '.') { me = {0, j}; arr[0][j] = '.'; break; }
-    map<char, vector<pair<int,int>>>targets;
+    for(int j=0;j<W;j++) if(arr[0][j] == '.') { me = {0, j}; arr[0][j] = 'H'; break; }
+    map<char, set<pair<int,int>>>targets;
     for(int i=1;i<H;i++) {
         for(int j=0;j<W;j++) {
             if(arr[i][j] != '.' && arr[i][j] != '#' && arr[i][j] != '~')
-                targets[arr[i][j]].push_back({i, j});
+                targets[arr[i][j]].insert({i, j});
         }
     }
-    int min_path = 0;
-    pos = me;
-    char t;
-    while(!targets.empty()) {
-        min_path += get_min_path(arr, pos, H, W, t);
-        for(pair<int,int> p: targets[t]) {
-            arr[p.first][p.second] = '.';
-        }
-        targets.erase(t);
-    }
-    arr[me.first][me.second] = '@';
-    min_path += get_min_path(arr, pos, H, W, t);
+    int min_path = get_min_path(arr, me, H, W);
+    cout<<"PART 1 :: "<<min_path<<"\n"; // 196
+}
 
-    if(part == 1) cout<<"PART 1 :: "<<min_path<<"\n"; // 196
-    else cout<<"PART 2 :: "<<min_path<<"\n"; // 568
+void part_2(vector<string>arr) {
+    pair<int,int>me, pos;
+    int H = arr.size(), W = arr[0].length();
+    for(int j=0;j<W;j++) if(arr[0][j] == '.') { me = {0, j}; arr[0][j] = 'H'; break; }
+    map<char, set<pair<int,int>>>targets;
+    for(int i=1;i<H;i++) {
+        for(int j=0;j<W;j++) {
+            if(arr[i][j] != '.' && arr[i][j] != '#' && arr[i][j] != '~')
+                targets[arr[i][j]].insert({i, j});
+        }
+    }
+    pos = me;
+    while(!targets.empty()) {
+        ;
+    }
+    cout<<"PART 2 :: "<<arr.size()<<"\n";
 }
 
 void part_3(vector<string>arr) {
@@ -105,11 +106,11 @@ int main() {
     {
     case 1:
         ip = read_data(folder_path+"01.in");
-        part_1n2(ip, 1);
+        part_1(ip);
         break;
     case 2:
         ip = read_data(folder_path+"02.in");
-        part_1n2(ip, 2);
+        part_2(ip);
         break;
     case 3:
         ip = read_data(folder_path+"03.in");
@@ -117,9 +118,9 @@ int main() {
         break;
     default:
         ip = read_data(folder_path+"01.in");
-        part_1n2(ip, 1);
+        part_1(ip);
         ip = read_data(folder_path+"02.in");
-        part_1n2(ip, 2);
+        part_2(ip);
         ip = read_data(folder_path+"03.in");
         part_3(ip);
         break;

@@ -29,7 +29,10 @@ pair<vector<int>, vector<vector<string>>> read_data(string filePath) {
             if(wheel.size() == 0)
                 for(int i=0;i<line.length();i+=4) wheel.push_back({line.substr(i, 3)});
             else
-                for(int i=0;i<line.length();i+=4) wheel[i/4].push_back(line.substr(i, 3));
+                for(int i=0;i<line.length();i+=4) {
+                    string s = line.substr(i, 3);
+                    if(s!= "   ") wheel[i/4].push_back(s);
+                }
         } else {
             stringstream ss(line);
             string token;
@@ -56,7 +59,26 @@ void print(vector<int>lever, vector<vector<string>>wheel) {
 }
 
 void part_1(vector<int>lever, vector<vector<string>>wheel) {
-    cout<<"PART 1 :: "<<" "<<"\n";
+    int res = 0, t = 0;
+    string sres = "";
+    vector<int>idx(lever.size(), 0);
+    while(t<100) {
+        sres = "";
+        for(int i=0;i<wheel.size();i++) idx[i] = (idx[i]+lever[i])%wheel[i].size();
+        t++;
+
+        vector<string> slot;
+        for(int i=0;i<wheel.size();i++) slot.push_back(wheel[i][idx[i]]);
+
+        // map<char, int>f;
+        for(string s: slot) {
+            // for(char c: s) f[c]++;
+            sres += (s+" ");
+        }
+        // for(auto it: f)
+        //     res += (it.second-2>0)?it.second-2:0;
+    }
+    cout<<"PART 1 :: "<<sres<<"\n";
 }
 
 void part_2(vector<int>lever, vector<vector<string>>wheel) {

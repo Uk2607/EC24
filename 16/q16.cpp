@@ -108,12 +108,14 @@ ll part_2(vector<int>lever, vector<vector<string>>wheel, ll pull_limit = 2024202
     return coins;
 }
 
-vector<vector<string>> rotate_wheel(vector<vector<string>>wheel, bool forward, int k) {
+vector<vector<string>> rotate_wheel(vector<vector<string>>wheel, bool rotate_left, int k) {
     vector<vector<string>>new_wheel;
     for(vector<string>v: wheel) {
         vector<string>new_v;
+        // RL [1 2 3] k=1 => [2 3 1]
+        // RR [1 2 3] k=1 => [3 1 2]
         int x = k%v.size();
-        if(!forward) x = v.size()-x;
+        if(!rotate_left) x = v.size()-x;
         for(int i=x;i<v.size();i++) new_v.push_back(v[i]);
         for (int i=0;i<x;i++) new_v.push_back(v[i]);
         new_wheel.push_back(new_v);
@@ -124,11 +126,15 @@ vector<vector<string>> rotate_wheel(vector<vector<string>>wheel, bool forward, i
 
 void part_3(vector<int>lever, vector<vector<string>>wheel) {
     vector<vector<string>>new_wheel;
-    ll no_left = part_2(lever, wheel, 256LL);
+    ll lever_pull = 2LL;
+    ll no_left = part_2(lever, wheel, lever_pull);
+    cout<<"NO:"<<no_left<<"\n";
     new_wheel = rotate_wheel(wheel, true, 1);
-    ll left_pull = part_2(lever, new_wheel, 256LL); // Machine starts from idx=1 of each wheel
+    ll left_pull = part_2(lever, new_wheel, lever_pull); // Machine starts from idx=1 of each wheel
+    cout<<"PULL:"<<left_pull<<"\n";
     new_wheel = rotate_wheel(wheel, false, 1);
-    ll left_push = part_2(lever, wheel, 256LL); // Machine starts from last idx of each wheel
+    ll left_push = part_2(lever, new_wheel, lever_pull); // Machine starts from last idx of each wheel
+    cout<<"PUSH:"<<left_push<<"\n";
     cout<<"PART 3 :: "<<max(no_left, max(left_pull, left_push))<<" "<<min(no_left, min(left_pull, left_push))<<"\n";
 }
 

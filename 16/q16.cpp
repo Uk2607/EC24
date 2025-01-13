@@ -59,30 +59,38 @@ void print(vector<int>lever, vector<vector<string>>wheel) {
 }
 
 void part_1(vector<int>lever, vector<vector<string>>wheel) {
-    int res = 0, t = 0;
-    string sres = "";
+    int t = 0;
+    string res;
     vector<int>idx(lever.size(), 0);
     while(t<100) {
-        sres = "";
         for(int i=0;i<wheel.size();i++) idx[i] = (idx[i]+lever[i])%wheel[i].size();
         t++;
 
-        vector<string> slot;
-        for(int i=0;i<wheel.size();i++) slot.push_back(wheel[i][idx[i]]);
-
-        // map<char, int>f;
-        for(string s: slot) {
-            // for(char c: s) f[c]++;
-            sres += (s+" ");
-        }
-        // for(auto it: f)
-        //     res += (it.second-2>0)?it.second-2:0;
+        res = "";
+        for(int i=0;i<wheel.size();i++) res += (wheel[i][idx[i]]+" ");
     }
-    cout<<"PART 1 :: "<<sres<<"\n";
+    cout<<"PART 1 :: "<<res<<"\n";
 }
 
 void part_2(vector<int>lever, vector<vector<string>>wheel) {
-    cout<<"PART 2 :: "<<" "<<"\n";
+    long long pull_limit = 202420242024LL, coins = 0LL, t = 0LL;
+    vector<int>idx(lever.size(), 0);
+    while(t<pull_limit) {
+        for(int i=0;i<wheel.size();i++) idx[i] = (idx[i]+lever[i])%wheel[i].size();
+        t++;
+
+        map<char, int>f;
+        for(int i=0;i<wheel.size();i++) {
+            char left_eye = wheel[i][idx[i]][0];
+            char right_eye = wheel[i][idx[i]][2];
+            f[left_eye]++;
+            f[right_eye]++;
+        }
+
+        for(auto it: f)
+            coins += (it.second-2>0)?it.second-2:0;
+    }
+    cout<<"PART 2 :: "<<coins<<"\n";
 }
 
 void part_3(vector<int>lever, vector<vector<string>>wheel) {

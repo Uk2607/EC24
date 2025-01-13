@@ -58,7 +58,7 @@ vector<pair<int,pair<int,int>>> kruskal(vector<pair<int,pair<int,int>>> edges, v
     return mst;
 }
 
-void part_1(vector<string>arr) {
+void part_1n2(vector<string>arr) {
     vector<pair<int,int>> pos;
     int H = arr.size(), W = arr[0].size();
     for(int i=0;i<H;i++) for(int j=0;j<W;j++) if(arr[i][j] == '*') pos.push_back({i,j});
@@ -72,17 +72,9 @@ void part_1(vector<string>arr) {
     vector<pair<int,pair<int,int>>> mst = kruskal(edges, pos);
 
     int res = pos.size();
-    for(int i=0;i<mst.size();i++) {
-        int u = mst[i].second.first, v = mst[i].second.second;
-        cout<<u+1<<" "<<v+1<<" "<<mst[i].first<<"\n";
-        res+=mst[i].first;
-    }
+    for(int i=0;i<mst.size();i++) res+=mst[i].first;
 
     cout<<"PART 1 :: "<<res<<"\n";
-}
-
-void part_2(vector<string>arr) {
-    cout<<"PART 2 :: "<<arr.size()<<"\n";
 }
 
 void part_3(vector<string>arr) {
@@ -100,11 +92,11 @@ int main() {
     {
     case 1:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1n2(ip);
         break;
     case 2:
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_1n2(ip);
         break;
     case 3:
         ip = read_data(folder_path+"03.in");
@@ -112,9 +104,9 @@ int main() {
         break;
     default:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1n2(ip);
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_1n2(ip);
         ip = read_data(folder_path+"03.in");
         part_3(ip);
         break;

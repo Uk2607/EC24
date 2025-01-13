@@ -5,6 +5,7 @@
 #include<string>
 #include<map>
 #include<set>
+#include<cassert>
 using namespace std;
 
 #define ll long long
@@ -84,13 +85,13 @@ ll part_2(vector<int>lever, vector<vector<string>>wheel, ll pull_limit = 2024202
         string slot = "", idx_str = "";
         for(int i=0;i<wheel.size();i++) {
             char left_eye = wheel[i][idx[i]][0];
-            char mouth = wheel[i][idx[i]][1];
             char right_eye = wheel[i][idx[i]][2];
             f[left_eye]++;
             f[right_eye]++;
             slot += wheel[i][idx[i]];
             idx_str += (to_string(idx[i])+' ');
-        }
+            // cout<<wheel[i][idx[i]]<<" ";
+        } // cout<<"\n";
 
         if(seen_idx_pattern.find(idx_str) == seen_idx_pattern.end()) {
             seen_idx_pattern.insert(idx_str);
@@ -104,11 +105,14 @@ ll part_2(vector<int>lever, vector<vector<string>>wheel, ll pull_limit = 2024202
     }
     coins *= (pull_limit/t);
     if(pull_limit%t) coins += pre[pull_limit%t-1];
-    if(pull_limit==202420242024LL) cout<<"PART 2 :: "<<coins<<"\n";
+    if(pull_limit==202420242024LL) {
+        assert(coins == 145286572621LL);
+        cout<<"PART 2 :: "<<coins<<"\n";
+    }
     return coins;
 }
 
-vector<vector<string>> rotate_wheel(vector<vector<string>>wheel, bool rotate_left, int k) {
+vector<vector<string>> rotate_wheel(vector<vector<string>>&wheel, bool rotate_left, int k=1) {
     vector<vector<string>>new_wheel;
     for(vector<string>v: wheel) {
         vector<string>new_v;
@@ -126,13 +130,15 @@ vector<vector<string>> rotate_wheel(vector<vector<string>>wheel, bool rotate_lef
 
 void part_3(vector<int>lever, vector<vector<string>>wheel) {
     vector<vector<string>>new_wheel;
-    ll lever_pull = 2LL;
+    ll lever_pull; // = 256LL;
+    cout<<"Enter lever pull: ";
+    cin>>lever_pull;
     ll no_left = part_2(lever, wheel, lever_pull);
     cout<<"NO:"<<no_left<<"\n";
-    new_wheel = rotate_wheel(wheel, true, 1);
+    new_wheel = rotate_wheel(wheel, true);
     ll left_pull = part_2(lever, new_wheel, lever_pull); // Machine starts from idx=1 of each wheel
     cout<<"PULL:"<<left_pull<<"\n";
-    new_wheel = rotate_wheel(wheel, false, 1);
+    new_wheel = rotate_wheel(wheel, false);
     ll left_push = part_2(lever, new_wheel, lever_pull); // Machine starts from last idx of each wheel
     cout<<"PUSH:"<<left_push<<"\n";
     cout<<"PART 3 :: "<<max(no_left, max(left_pull, left_push))<<" "<<min(no_left, min(left_pull, left_push))<<"\n";

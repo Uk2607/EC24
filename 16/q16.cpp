@@ -74,22 +74,36 @@ void part_1(vector<int>lever, vector<vector<string>>wheel) {
 
 void part_2(vector<int>lever, vector<vector<string>>wheel) {
     long long pull_limit = 202420242024LL, coins = 0LL, t = 0LL;
-    vector<int>idx(lever.size(), 0);
+    vector<int>idx(lever.size(), 0), pre;
+    set<string>seen_idx_pattern;
+    vector<string>order;
     while(t<pull_limit) {
         for(int i=0;i<wheel.size();i++) idx[i] = (idx[i]+lever[i])%wheel[i].size();
-        t++;
 
         map<char, int>f;
+        string slot = "", idx_str = "";
         for(int i=0;i<wheel.size();i++) {
             char left_eye = wheel[i][idx[i]][0];
+            char mouth = wheel[i][idx[i]][1];
             char right_eye = wheel[i][idx[i]][2];
             f[left_eye]++;
             f[right_eye]++;
+            slot += wheel[i][idx[i]];
+            idx_str += (to_string(idx[i])+' ');
         }
+
+        if(seen_idx_pattern.find(idx_str) == seen_idx_pattern.end()) {
+            seen_idx_pattern.insert(idx_str);
+            order.push_back(slot);
+        } else break;
+        t++;
 
         for(auto it: f)
             coins += (it.second-2>0)?it.second-2:0;
+        pre.push_back(coins);
     }
+    coins *= (pull_limit/t);
+    if(pull_limit%t) coins += pre[pull_limit%t-1];
     cout<<"PART 2 :: "<<coins<<"\n";
 }
 

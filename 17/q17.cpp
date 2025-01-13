@@ -47,7 +47,7 @@ int main() {
     cin>>part;
     vector<string> ip;
     
-    string folder_path = "__/";
+    string folder_path = "17/";
     switch (part)
     {
     case 1:

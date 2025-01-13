@@ -72,8 +72,8 @@ void part_1(vector<int>lever, vector<vector<string>>wheel) {
     cout<<"PART 1 :: "<<res<<"\n";
 }
 
-void part_2(vector<int>lever, vector<vector<string>>wheel) {
-    long long pull_limit = 202420242024LL, coins = 0LL, t = 0LL;
+ll part_2(vector<int>lever, vector<vector<string>>wheel, ll pull_limit = 202420242024LL) {
+    ll coins = 0LL, t = 0LL;
     vector<int>idx(lever.size(), 0), pre;
     set<string>seen_idx_pattern;
     vector<string>order;
@@ -104,11 +104,32 @@ void part_2(vector<int>lever, vector<vector<string>>wheel) {
     }
     coins *= (pull_limit/t);
     if(pull_limit%t) coins += pre[pull_limit%t-1];
-    cout<<"PART 2 :: "<<coins<<"\n";
+    if(pull_limit==202420242024LL) cout<<"PART 2 :: "<<coins<<"\n";
+    return coins;
 }
 
+vector<vector<string>> rotate_wheel(vector<vector<string>>wheel, bool forward, int k) {
+    vector<vector<string>>new_wheel;
+    for(vector<string>v: wheel) {
+        vector<string>new_v;
+        int x = k%v.size();
+        if(!forward) x = v.size()-x;
+        for(int i=x;i<v.size();i++) new_v.push_back(v[i]);
+        for (int i=0;i<x;i++) new_v.push_back(v[i]);
+        new_wheel.push_back(new_v);
+    }
+    return new_wheel;
+}
+
+
 void part_3(vector<int>lever, vector<vector<string>>wheel) {
-    cout<<"PART 3 :: "<<" "<<"\n";
+    vector<vector<string>>new_wheel;
+    ll no_left = part_2(lever, wheel, 256LL);
+    new_wheel = rotate_wheel(wheel, true, 1);
+    ll left_pull = part_2(lever, new_wheel, 256LL); // Machine starts from idx=1 of each wheel
+    new_wheel = rotate_wheel(wheel, false, 1);
+    ll left_push = part_2(lever, wheel, 256LL); // Machine starts from last idx of each wheel
+    cout<<"PART 3 :: "<<max(no_left, max(left_pull, left_push))<<" "<<min(no_left, min(left_pull, left_push))<<"\n";
 }
 
 int main() {

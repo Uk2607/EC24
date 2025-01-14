@@ -35,14 +35,13 @@ bool isInside(pair<int,int>p, int H, int W) {
     return p.first>=0 && p.first<H && p.second>=0 && p.second<W;
 }
 
-void part_1(vector<string>arr) {
-    set<pair<int,int>>st;
-    int H = arr.size(), W = arr[0].size();
-    for(int i=0;i<H;i++) for(int j=0;j<W;j++) if(arr[i][j] == 'P') st.insert({i,j});
-    pair<int,int>src = {1, 0};
+int bfs(vector<string>arr, int H, int W, vector<pair<int,int>>src, set<pair<int,int>>&st) {
     vector<vector<bool>>vis(H, vector<bool>(W, false));
     queue<pair<int,int>>q;
-    q.push(src);
+    for(pair<int,int> s:src) {
+        q.push(s);
+        vis[s.first][s.second] = true;
+    }
     int depth = 0;
     while(!q.empty()) {
         int n = q.size();
@@ -61,11 +60,23 @@ void part_1(vector<string>arr) {
         if(st.empty()) break;
         depth++;
     }
+    return depth;
+}
+
+void part_1(vector<string>arr) {
+    set<pair<int,int>>st;
+    int H = arr.size(), W = arr[0].size();
+    for(int i=0;i<H;i++) for(int j=0;j<W;j++) if(arr[i][j] == 'P') st.insert({i,j});
+    int depth = bfs(arr, H, W, {{1, 0}}, st);
     cout<<"PART 1 :: "<<depth<<"\n";
 }
 
 void part_2(vector<string>arr) {
-    cout<<"PART 2 :: "<<arr.size()<<"\n";
+    set<pair<int,int>>st;
+    int H = arr.size(), W = arr[0].size();
+    for(int i=0;i<H;i++) for(int j=0;j<W;j++) if(arr[i][j] == 'P') st.insert({i,j});
+    int depth = bfs(arr, H, W, {{1, 0}, {H-2, W-1}}, st);
+    cout<<"PART 2 :: "<<depth<<"\n";
 }
 
 void part_3(vector<string>arr) {

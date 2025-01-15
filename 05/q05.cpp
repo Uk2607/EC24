@@ -3,10 +3,12 @@
 #include<sstream>
 #include<vector>
 #include<map>
+#include<set>
 #include<string>
 using namespace std;
 
 #define ll long long
+#define ull unsigned long long
 
 vector<vector<int>> read_data(string filePath) {
 
@@ -115,8 +117,57 @@ void part2(vector<vector<int>>cols) {
 }
 
 void part3(vector<vector<int>>cols) {
-    string first_row = "TODO";
-    cout<<"PART 3:: "<<first_row<<"\n";
+    int clapIdx = 0;
+    string res;
+    set<string> st;
+    vector<int> topArr(cols.size(), 0);
+    while(true) {
+        if(cols[clapIdx].empty()) continue;
+
+        int clapper = cols[clapIdx].front();
+        cols[clapIdx].erase(cols[clapIdx].begin()); // Shift operation
+
+        int targetColumnIdx = (clapIdx + 1) % cols.size();
+        std::vector<int>& targetColumn = cols[targetColumnIdx];
+
+        int moves = (clapper % (targetColumn.size() * 2)) - 1;
+        moves = abs(moves);
+        if (moves > targetColumn.size()) {
+            moves = (targetColumn.size() * 2) - moves;
+        }
+
+        // Insert clapper into the target column
+        targetColumn.insert(targetColumn.begin() + moves, clapper);
+        clapIdx = (clapIdx + 1) % cols.size();
+
+        // Prepare the result
+        string result;
+        for (const auto& col : cols) {
+            if (!col.empty())
+                result += std::to_string(col[0]); // Get the first element of each column
+            result += "|";
+        }
+        if(st.count(result)) break;
+        st.insert(result);
+
+        // Calculate the top values
+        vector<int> top(cols.size(), 0); // Initialize top with 0s
+        for (int i = 0; i < cols.size(); ++i)
+            if (!cols[i].empty())
+                top[i] = cols[i][0]; // Get the first element of each column
+
+        // Compare top with topArr
+        for (int i = 0; i < top.size(); ++i) {
+            if (top[i] > topArr[i]) {
+                topArr = top; // Update topArr if top is greater
+                break; // No need to check further
+            } else if (top[i] < topArr[i]) {
+                break; // No need to check further
+            }
+        }
+    }
+    for(int x: topArr) res += to_string(x);
+    cout<<"PART 3:: "<<res<<"\n";
 }
 
 int main() {

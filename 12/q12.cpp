@@ -29,32 +29,28 @@ vector<string> read_data(string filePath) {
     return arr;
 }
 
-void part_1(vector<string>arr) {
+void part_1n2(vector<string>arr) {
     int r = arr.size(), c = arr[0].length(), res = 0;
-    vector<pair<int,int>>target;
+    vector<pair<pair<int,int>, int>>target;
     vector<pair<char, pair<int,int>>>players;
     for(int i=0;i<r;i++)
         for(int j=0;j<c;j++) {
-            if(arr[i][j]=='T') target.push_back({i, j}); 
+            if(arr[i][j]=='T') target.push_back({{i, j}, 1});
+            else if(arr[i][j]=='H') target.push_back({{i, j}, 2});
             else if(arr[i][j]!='.') players.push_back({arr[i][j], {i, j}});
         }
-    for(pair<int,int>t: target) {
+    for(auto [t, m]: target) {
         int dist = 0, idx = 0;
         for(auto [c, p]: players) {
             int diff  = (t.second-p.second) - (t.first-p.first);
             if(diff%3==0) {
-                int x = (c -'A' + 1) * ((t.second - p.second) - (t.first - p.first))/3;
-                cout<<c<<": "<<x<<"\n";
+                int x = (c -'A' + 1) * m * diff/3;
                 res += x;
 				break;
             }
         }
     }
     cout<<"PART 1 :: "<<res<<"\n";
-}
-
-void part_2(vector<string>arr) {
-    cout<<"PART 2 :: "<<arr.size()<<"\n";
 }
 
 void part_3(vector<string>arr) {
@@ -72,11 +68,11 @@ int main() {
     {
     case 1:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1n2(ip);
         break;
     case 2:
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_1n2(ip);
         break;
     case 3:
         ip = read_data(folder_path+"03.in");
@@ -84,9 +80,9 @@ int main() {
         break;
     default:
         ip = read_data(folder_path+"01.in");
-        part_1(ip);
+        part_1n2(ip);
         ip = read_data(folder_path+"02.in");
-        part_2(ip);
+        part_1n2(ip);
         ip = read_data(folder_path+"03.in");
         part_3(ip);
         break;

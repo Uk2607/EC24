@@ -24,29 +24,33 @@ vector<string> read_data(string filePath) {
     while(getline(file, line)) {
         arr.push_back(line);
     }
+    arr.pop_back();
     file.close();
     return arr;
 }
 
 void part_1(vector<string>arr) {
-    int r = arr.size(), c = arr[0].length();
-    vector<pair<int,int>>playres, target;
+    int r = arr.size(), c = arr[0].length(), res = 0;
+    vector<pair<int,int>>target;
+    vector<pair<char, pair<int,int>>>players;
     for(int i=0;i<r;i++)
         for(int j=0;j<c;j++) {
-            if(arr[i][j]!='.' && arr[i][j]!='T' && arr[i][j]!='=') playres.push_back({i, j});
             if(arr[i][j]=='T') target.push_back({i, j}); 
+            else if(arr[i][j]!='.') players.push_back({arr[i][j], {i, j}});
         }
-    int tidx = 0;
     for(pair<int,int>t: target) {
         int dist = 0, idx = 0;
-        cout<<++tidx<<"::\n";
-        for(pair<int,int>p: playres) {
-            int dy = t.second-p.second;
-            int dx = t.first-p.first;
-            cout<<(char)('A'+idx++)<<": "<<dx<<", "<<dy<<"\n"; // 3*n, 3n+1, 3n-1
+        for(auto [c, p]: players) {
+            int diff  = (t.second-p.second) - (t.first-p.first);
+            if(diff%3==0) {
+                int x = (c -'A' + 1) * ((t.second - p.second) - (t.first - p.first))/3;
+                cout<<c<<": "<<x<<"\n";
+                res += x;
+				break;
+            }
         }
     }
-    cout<<"PART 1 :: "<<arr.size()<<"\n";
+    cout<<"PART 1 :: "<<res<<"\n";
 }
 
 void part_2(vector<string>arr) {

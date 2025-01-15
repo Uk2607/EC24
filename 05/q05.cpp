@@ -42,9 +42,31 @@ void print(vector<vector<int>>&cols) {
 }
 
 void part1(vector<vector<int>>cols) {
-    string first_row = "TODO";
-    print(cols);
-    cout<<"PART 1:: "<<first_row<<"\n";
+    int clapIdx = 0;
+    string res = "";
+    for(int r = 0;r<10;r++) {
+        if(cols[clapIdx].empty()) continue;
+
+        int clapper = cols[clapIdx].front();
+        cols[clapIdx].erase(cols[clapIdx].begin()); // Shift operation
+
+        int targetColumnIdx = (clapIdx + 1) % cols.size();
+        std::vector<int>& targetColumn = cols[targetColumnIdx];
+
+        int moves = (clapper % (targetColumn.size() * 2)) - 1;
+        moves = abs(moves);
+        if (moves > targetColumn.size()) {
+            moves = (targetColumn.size() * 2) - moves;
+        }
+
+        // Insert clapper into the target column
+        targetColumn.insert(targetColumn.begin() + moves, clapper);
+        clapIdx = (clapIdx + 1) % cols.size();
+    }
+
+    // Prepare the answer
+    for (const auto& col : cols) if (!col.empty()) res += to_string(col[0]);
+    cout<<"PART 1:: "<<res<<"\n";
 }
 
 void part2(vector<vector<int>>cols) {

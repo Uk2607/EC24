@@ -2,8 +2,11 @@
 #include<fstream>
 #include<sstream>
 #include<vector>
+#include<map>
 #include<string>
 using namespace std;
+
+#define ll long long
 
 vector<vector<int>> read_data(string filePath) {
 
@@ -70,8 +73,45 @@ void part1(vector<vector<int>>cols) {
 }
 
 void part2(vector<vector<int>>cols) {
-    string first_row = "TODO";
-    cout<<"PART 2:: "<<first_row<<"\n";
+    int clapIdx = 0;
+    map<string, int> count;
+    ll r = 1, res = 0;
+    while(true) {
+        if(cols[clapIdx].empty()) continue;
+
+        int clapper = cols[clapIdx].front();
+        cols[clapIdx].erase(cols[clapIdx].begin()); // Shift operation
+
+        int targetColumnIdx = (clapIdx + 1) % cols.size();
+        std::vector<int>& targetColumn = cols[targetColumnIdx];
+
+        int moves = (clapper % (targetColumn.size() * 2)) - 1;
+        moves = abs(moves);
+        if (moves > targetColumn.size()) {
+            moves = (targetColumn.size() * 2) - moves;
+        }
+
+        // Insert clapper into the target column
+        targetColumn.insert(targetColumn.begin() + moves, clapper);
+        clapIdx = (clapIdx + 1) % cols.size();
+
+        // Prepare the result
+        string result;
+        for (const auto& col : cols) {
+            if (!col.empty()) {
+                result += std::to_string(col[0]); // Get the first element of each column
+            }
+        }
+        count[result]++;
+
+        // Check if the result has appeared 2024 times
+        if (count[result] == 2024) {
+            res = r * stoll(result); // Calculate the answer
+            break;
+        }
+        r++;
+    }
+    cout<<"PART 2:: "<<res<<"\n";
 }
 
 void part3(vector<vector<int>>cols) {

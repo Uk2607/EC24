@@ -57,30 +57,10 @@ void rotate(vector<string>&arr, pair<int, int>pivot, char dir, int H, int W) {
     }
 }
 
-void part_1(string ins, vector<string>arr) {
-    int H = arr.size(), W = arr[0].size(), n = ins.length(), idx = 0;
-    for(int i=1;i<H-1;i++) {
-        for(int j=1;j<W-1;j++) {
-            rotate(arr, {i, j}, ins[idx], H, W);
-            idx = (idx+1)%n;
-        }
-    }
-    string res = "";
-    bool flag = false;
-    for(int i=0;i<H;i++) {
-        for(int j=0;j<W;j++) {
-            if(arr[i][j] == '>') flag = true;
-            else if(arr[i][j] == '<') flag = false;
-            else if(flag) res += arr[i][j];
-        }
-    }
-    cout<<"PART 1 :: "<<res<<"\n";
-}
-
-void part_2(string ins, vector<string>arr) {
+string simulate(string &ins, vector<string>&arr, ll rotate_cnt = 1LL) {
     int H = arr.size(), W = arr[0].size(), n = ins.length(), idx;
-    int t = 100;
-    while(t--) {
+    while(rotate_cnt--) {
+        cout<<rotate_cnt<<"\n";
         idx = 0;
         for(int i=1;i<H-1;i++) {
             for(int j=1;j<W-1;j++) {
@@ -93,18 +73,32 @@ void part_2(string ins, vector<string>arr) {
     bool flag = false;
     for(int i=0;i<H;i++) {
         for(int j=0;j<W;j++) {
-            // cout<<arr[i][j];
+            cout<<arr[i][j];
             if(arr[i][j] == '>') flag = true;
             else if(arr[i][j] == '<') flag = false;
             else if(flag) res += arr[i][j];
         }
-        // cout<<"\n";
+        cout<<"\n";
     }
+    return res;
+}
+
+void part_1(string ins, vector<string>arr) {
+    string res = simulate(ins, arr);
+    cout<<"PART 1 :: "<<res<<"\n";
+    assert(res == "3982472553735646");
+}
+
+void part_2(string ins, vector<string>arr) {
+    string res = simulate(ins, arr, 100LL);
     cout<<"PART 2 :: "<<res<<"\n";
+    assert(res == "2542876368574977");
 }
 
 void part_3(string ins, vector<string>arr) {
+    string res = simulate(ins, arr, 1048576000LL);
     cout<<"PART 3 :: "<<arr.size()<<"\n";
+    assert(res != "");
 }
 
 int main() {

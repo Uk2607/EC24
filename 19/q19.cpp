@@ -72,12 +72,11 @@ string get_coded_msg(vector<string>&arr) {
     bool flag = false;
     for(int i=0;i<H;i++) {
         for(int j=0;j<W;j++) {
-            cout<<arr[i][j];
             if(arr[i][j] == '>') flag = true;
             else if(arr[i][j] == '<') flag = false;
             else if(flag) res += arr[i][j];
         }
-        cout<<"\n";
+        if(flag) return "";
     }
     return res;
 }
@@ -104,13 +103,21 @@ void part_2(string ins, vector<string>arr) {
 
 void part_3(string ins, vector<string>arr) {
     int H = arr.size(), W = arr[0].size(), n = ins.length();
-    ll rotate_cnt = 1048576000LL;
-    while(rotate_cnt > 0) {
+    ll rotate_cnt = 1048576000LL, idx = 0LL;
+    string res, temp;
+    set<string>st;
+    while(idx<rotate_cnt) {
         simulate(ins, arr, H, W, n);
-        rotate_cnt -= 1;
+        idx++;
+        temp = get_coded_msg(arr);
+        if(temp.length()>0) {
+            cout<<rotate_cnt-idx<<" "<<idx<<": "<<temp<<"\n";
+            // if(st.find(temp) != st.end()) break;
+            st.insert(temp);
+        }
     }
-    string res = get_coded_msg(arr);
-    cout<<"PART 3 :: "<<arr.size()<<"\n";
+    res = get_coded_msg(arr);
+    cout<<"PART 3 :: "<<res<<"\n"; // look for pattern in part 2 after each round
     assert(res != "");
 }
 

@@ -21,5 +21,5 @@
 | [Day 16](https://everybody.codes/event/2024/quests/16) | In Progress | [q16.cpp](./16/q16.cpp) | [01](./16/01.in) [02](./16/02.in) [03](./16/03.in) | ★★ |
 | [Day 17](https://everybody.codes/event/2024/quests/17)<sup>*</sup> | In Progress | [q17.cpp](./17/q17.cpp) | [01](./17/01.in) [02](./17/02.in) [03](./17/03.in) | ★★ |
 | [Day 18](https://everybody.codes/event/2024/quests/18) | Solved | [q18.cpp](./18/q18.cpp) | [01](./18/01.in) [02](./18/02.in) [03](./18/03.in) | ★★★ |
-| [Day 19](https://everybody.codes/event/2024/quests/19) | Open | [q19.cpp](./19/q19.cpp) | [01](./19/01.in) [02](./19/02.in) [03](./19/03.in) | |
+| [Day 19](https://everybody.codes/event/2024/quests/19) | In Progress | [q19.cpp](./19/q19.cpp) | [01](./19/01.in) [02](./19/02.in) [03](./19/03.in) | ★ |
 | [Day 20](https://everybody.codes/event/2024/quests/20) | Open | [q20.cpp](./20/q20.cpp) | [01](./20/01.in) [02](./20/02.in) [03](./20/03.in) | |

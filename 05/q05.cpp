@@ -56,7 +56,7 @@ void part1(vector<vector<int>>cols) {
         cols[clapIdx].erase(cols[clapIdx].begin()); // Shift operation
 
         int targetColumnIdx = (clapIdx + 1) % cols.size();
-        std::vector<int>& targetColumn = cols[targetColumnIdx];
+        vector<int>& targetColumn = cols[targetColumnIdx];
 
         int moves = (clapper % (targetColumn.size() * 2)) - 1;
         moves = abs(moves);
@@ -85,7 +85,7 @@ void part2(vector<vector<int>>cols) {
         cols[clapIdx].erase(cols[clapIdx].begin()); // Shift operation
 
         int targetColumnIdx = (clapIdx + 1) % cols.size();
-        std::vector<int>& targetColumn = cols[targetColumnIdx];
+        vector<int>& targetColumn = cols[targetColumnIdx];
 
         int moves = (clapper % (targetColumn.size() * 2)) - 1;
         moves = abs(moves);
@@ -101,7 +101,7 @@ void part2(vector<vector<int>>cols) {
         string result;
         for (const auto& col : cols) {
             if (!col.empty()) {
-                result += std::to_string(col[0]); // Get the first element of each column
+                result += to_string(col[0]); // Get the first element of each column
             }
         }
         count[result]++;
@@ -119,7 +119,7 @@ void part2(vector<vector<int>>cols) {
 void part3(vector<vector<int>>cols) {
     int clapIdx = 0;
     string res;
-    set<string> st;
+    map<string, int> mp;
     vector<int> topArr(cols.size(), 0);
     while(true) {
         if(cols[clapIdx].empty()) continue;
@@ -128,7 +128,7 @@ void part3(vector<vector<int>>cols) {
         cols[clapIdx].erase(cols[clapIdx].begin()); // Shift operation
 
         int targetColumnIdx = (clapIdx + 1) % cols.size();
-        std::vector<int>& targetColumn = cols[targetColumnIdx];
+        vector<int>& targetColumn = cols[targetColumnIdx];
 
         int moves = (clapper % (targetColumn.size() * 2)) - 1;
         moves = abs(moves);
@@ -144,11 +144,12 @@ void part3(vector<vector<int>>cols) {
         string result;
         for (const auto& col : cols) {
             if (!col.empty())
-                result += std::to_string(col[0]); // Get the first element of each column
+                result += to_string(col[0]); // Get the first element of each column
             result += "|";
         }
-        if(st.count(result)) break;
-        st.insert(result);
+        mp[result]++;
+
+        if(mp[result]>2024) break;
 
         // Calculate the top values
         vector<int> top(cols.size(), 0); // Initialize top with 0s

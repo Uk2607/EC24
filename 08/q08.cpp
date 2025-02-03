@@ -48,9 +48,15 @@ void part_2(ll mul) {
 }
 
 void part_3(int mul) {
-    int mod = 10;
-    ll totalStones = 202400000LL;
-    cout<<"PART 3 :: "<<mul<<"\n";
+    int mod = 10, layer = 1, thickness = 1;
+    ll stones = 1LL, totalStones = 202400000LL;
+    while(stones<totalStones) {
+        thickness = ((thickness*mul)%mod)+mod;
+        layer++;
+        stones += (2*layer-1)*thickness;
+    }
+    ll missing_stones = stones-totalStones, pWidth = layer*2-1, res = missing_stones*pWidth;
+    cout<<"PART 3 :: "<<missing_stones<<"\n";
 }
 
 int main() {

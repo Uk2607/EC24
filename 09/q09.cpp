@@ -56,14 +56,14 @@ void part_2(vector<int>arr) {
 }
 
 void part_3(vector<int>arr) {
-    // TODO: fix
     vector<int>validStamps = {1, 3, 5, 10, 15, 16, 20, 24, 25, 30, 37, 38, 49, 50, 74, 75, 100, 101};
     int res = 0, idx = 0;
     for(int T: arr) {
-        cout<<idx++<<": "<<T<<" ";
+        cout<<idx++<<":\t"<<T<<" ";
         int lmn = INT_MAX, rmn = INT_MAX;
         for(int y=(T/2)-50;y<=T/2;y++) {
             int x = T-y;
+            if(abs(x-y)>100) continue;
             int l = knapsack(validStamps, y);
             int r = knapsack(validStamps, x);
             lmn = min(lmn, l);
@@ -71,9 +71,8 @@ void part_3(vector<int>arr) {
         }
         cout<<lmn<<", "<<rmn<<"\n";
         res += (lmn+rmn);
-        // res += knapsack(validStamps, T);
     }
-    cout<<"PART 3 :: "<<res<<"\n"; // 1 _ _ _ _ _ != 148844
+    cout<<"PART 3 :: "<<res<<"\n"; // 148846
 }
 // x>y
 // x+y=T;
